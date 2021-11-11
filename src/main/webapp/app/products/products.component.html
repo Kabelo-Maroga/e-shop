@@ -1,0 +1,61 @@
+<div class="row">
+  <div class="col-3">
+    <!--    <shop-filter [category] = "category"></shop-filter>-->
+    <div class="sticky-top">
+      <div class="list-group">
+        <a class="list-group-item list-group-item-action" [class.active]="!category" routerLink="/" (click)="reset()"> All Categories </a>
+        <a
+          *ngFor="let c of categories"
+          routerLink="/"
+          (click)="filterProducts(c)"
+          class="list-group-item list-group-item-action"
+          [class.active]="category === c.valueOf()"
+        >
+          {{ c.valueOf() }}
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="col">
+    <div class="row">
+      <ng-container *ngFor="let product of filteredProducts; let i = index">
+        <div class="col">
+          <product-card [product]="product"></product-card>
+          <!--          <div class="card">-->
+          <!--            <img [src]="product?.imageUrl"-->
+          <!--                 class="card-img-top"-->
+          <!--                 alt="Card image cap">-->
+          <!--            <div class="card-body">-->
+          <!--              <h5 class="card-title">{{product?.title}}</h5>-->
+          <!--              <p class="card-text">{{product?.price | currency: 'R': true}}</p>-->
+          <!--            </div>-->
+          <!--            <div class="card-footer">-->
+          <!--              <button-->
+          <!--                class="btn btn-secondary btn-block">Add to Cart-->
+          <!--              </button>-->
+
+          <!--              <ng-template #updateQuantity>-->
+          <!--                <div class="row no-gutters">-->
+          <!--                  <div class="col-2">-->
+          <!--                    <button class="btn btn-secondary btn-block">-</button>-->
+          <!--                  </div>-->
+          <!--                  <div class="col text-center padding">-->
+          <!--                    {{0}} in cart-->
+          <!--                  </div>-->
+          <!--                  <div class="col-2">-->
+          <!--                    <button class="btn btn-secondary btn-block">+</button>-->
+          <!--                  </div>-->
+          <!--                </div>-->
+          <!--              </ng-template>-->
+          <!--            </div>-->
+          <!--          </div>-->
+        </div>
+        <div *ngIf="(i + 1) % 2 === 0" class="w-100"></div>
+      </ng-container>
+    </div>
+    <div class="no-products" *ngIf="products?.length === 0">
+      {{ 'No products for this category!' }}
+    </div>
+  </div>
+</div>
