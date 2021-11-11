@@ -1,0 +1,12 @@
+{
+  "eshopApp": {
+    "Category": {
+      "null": "",
+      "FRUITS": "FRUITS",
+      "VEGETABLE": "VEGETABLE",
+      "BREAD": "BREAD",
+      "DAIRY": "DAIRY",
+      "SEASONING": "SEASONING"
+    }
+  }
+}

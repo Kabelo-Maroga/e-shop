@@ -1,0 +1,57 @@
+application {
+  config {
+    baseName eshop,
+    applicationType monolith,
+    packageName com.kabelo.eshop,
+    authenticationType jwt,
+    prodDatabaseType postgresql,
+    devDatabaseType postgresql,
+    clientFramework angular
+  }
+  entities *
+}
+
+enum Role {
+	USER,
+    ADMIN
+}
+
+enum Category {
+	FRUITS,
+    VEGETABLE,
+    BREAD,
+    DAIRY,
+    SEASONING
+}
+
+entity ShopUser {
+	name String,
+    email String,
+    password String,
+    role Role
+}
+
+entity Product {
+    category Category,
+	title String,
+    price BigDecimal,
+    imageUrl String,
+}
+
+entity ShoppingCart {
+    quantity Integer
+}
+
+relationship ManyToOne {
+	ShoppingCart to Product,
+}
+
+relationship OneToOne {
+	ShoppingCart to ShopUser
+}
+
+dto Product, ShoppingCart, ShopUser with mapstruct
+
+paginate Product, ShoppingCart with pagination
+
+service Product, ShoppingCart, ShopUser with serviceImpl
