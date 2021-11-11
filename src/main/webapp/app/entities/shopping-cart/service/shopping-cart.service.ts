@@ -12,6 +12,8 @@ export type EntityArrayResponseType = HttpResponse<IShoppingCart[]>;
 
 @Injectable({ providedIn: 'root' })
 export class ShoppingCartService {
+  public shoppingCart?: IShoppingCart[];
+
   protected resourceUrl = this.applicationConfigService.getEndpointFor('api/shopping-carts');
 
   constructor(protected http: HttpClient, protected applicationConfigService: ApplicationConfigService) {}
