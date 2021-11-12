@@ -1,19 +1,53 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpResponse } from '@angular/common/http';
-import { FormBuilder } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
-import { finalize } from 'rxjs/operators';
-
-import { IProduct, Product } from '../product.model';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ProductService } from '../service/product.service';
 import { Category } from 'app/entities/enumerations/category.model';
+import { IProduct, Product } from '../product.model';
+import { finalize } from 'rxjs/operators';
+import { HttpResponse } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'jhi-product-update',
   templateUrl: './product-update.component.html',
 })
 export class ProductUpdateComponent implements OnInit {
+  // categories: string[] = ['BREAD', 'FRUIT', 'SEASONING', 'DAIRY', 'VEGETABLE'];
+  // product?: IProduct | null;
+  // id: any;
+  //
+  // constructor(
+  //   private route: ActivatedRoute,
+  //   private productService: ProductService,
+  //   private router: Router) {
+  //   console.log('categories: ', this.categories);
+  // }
+  //
+  // ngOnInit(): void {
+  //   this.id = this.route.snapshot.paramMap.get('id');
+  //   const id = Number(this.id);
+  //   this.productService.find(id).subscribe(res => this.product = res.body);
+  // }
+  //
+  // save(product: any): void {
+  //   if (this.id) {
+  //     this.productService.update(product).subscribe(res => this.product = res.body);
+  //   } else {
+  //     this.productService.create(product).subscribe(res => this.product = res.body);
+  //   }
+  //   this.router.navigate(['/admin/products']);
+  // }
+  //
+  // delete(): void {
+  //   console.log('testing')
+  //   // if (confirm("Are you sure you want to delete this product?")) {
+  //   //   // this.productService.delete()
+  //   //   // this.productService.delete(this.id);
+  //   //   // this.router.navigate(['/admin/products']);
+  //   // }
+  // }
+
   isSaving = false;
   categoryValues = Object.keys(Category);
 

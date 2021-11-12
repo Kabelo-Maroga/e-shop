@@ -10,13 +10,14 @@ import { IShoppingCart } from '../entities/shopping-cart/shopping-cart.model';
 })
 export class ProductCardComponent {
   @Input() product?: IProduct;
-  // @Input() shoppingCart?: IShoppingCart;
+  @Input() shoppingCart?: IShoppingCart;
 
-  constructor(private shoppingCartService: ShoppingCartService) {}
+  constructor(public shoppingCartService: ShoppingCartService) {}
 
   addToCart(): void {
     this.shoppingCartService.shoppingCart?.forEach(shoppingCart => {
       if (shoppingCart.product === this.product) {
+        console.log('here');
         shoppingCart.quantity = (shoppingCart.quantity ?? 0) + 1;
       }
     });
@@ -36,12 +37,20 @@ export class ProductCardComponent {
     // this.shoppingCartService.query(params).subscribe();
   }
 
-  getQuantity(): number {
+  getQuantity(): any {
+    const quantity: any = 0;
     // if (!this.shoppingCart) {
-    //   return 0;
+    //   return quantity;
+    // }
+    // if (this.shoppingCartService.shoppingCart && this.product?.id) {
+    //   quantity = this.shoppingCartService.shoppingCart[this.product.id].quantity;
+    // }
+    console.log('qua', quantity);
+    // if(this.product?.id) {
+    //   return this.shoppingCart.product
     // }
 
     // let item = this.shoppingCart[this.product?.id];
-    return 0;
+    return 2;
   }
 }

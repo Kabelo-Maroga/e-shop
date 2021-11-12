@@ -6,10 +6,10 @@ import { Category } from '../entities/enumerations/category.model';
 
 @Component({
   selector: 'jhi-home',
-  templateUrl: './products.component.html',
-  styleUrls: ['./products.component.scss'],
+  templateUrl: './admin-products.component.html',
+  styleUrls: ['./admin-products.component.scss'],
 })
-export class ProductsComponent implements OnInit {
+export class AdminProductsComponent implements OnInit {
   products?: IProduct[];
   filteredProducts?: IProduct[];
 

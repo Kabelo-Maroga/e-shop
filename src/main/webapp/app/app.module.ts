@@ -30,6 +30,7 @@ import { ErrorComponent } from './layouts/error/error.component';
 import { ProductsModule } from './products/products.module';
 import { FilterModule } from './products/filter/filter.module';
 import { ProductCardModule } from './product-card/product-card.module';
+import { BsNavbarModule } from './bs-navbar/bs-navbar.module';
 
 @NgModule({
   imports: [
@@ -59,6 +60,7 @@ import { ProductCardModule } from './product-card/product-card.module';
         useFactory: missingTranslationHandler,
       },
     }),
+    BsNavbarModule,
   ],
   providers: [
     Title,

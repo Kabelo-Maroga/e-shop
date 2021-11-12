@@ -54,7 +54,7 @@
         <div *ngIf="(i + 1) % 2 === 0" class="w-100"></div>
       </ng-container>
     </div>
-    <div class="no-products" *ngIf="products?.length === 0">
+    <div class="no-products" *ngIf="filteredProducts?.length === 0">
       {{ 'No products for this category!' }}
     </div>
   </div>

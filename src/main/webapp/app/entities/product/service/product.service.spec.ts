@@ -22,7 +22,7 @@ describe('Product Service', () => {
 
     elemDefault = {
       id: 0,
-      category: Category.FRUITS,
+      category: Category.FRUIT,
       title: 'AAAAAAA',
       price: 0,
       imageUrl: 'AAAAAAA',
