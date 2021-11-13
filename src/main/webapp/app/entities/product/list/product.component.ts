@@ -4,6 +4,7 @@ import { IProduct } from '../product.model';
 import { ProductService } from '../service/product.service';
 import { Category } from '../../enumerations/category.model';
 import { ShoppingCartService } from '../../shopping-cart/service/shopping-cart.service';
+import { ConfirmationService, MessageService } from 'primeng/api';
 
 @Component({
   selector: 'jhi-product',
@@ -11,7 +12,7 @@ import { ShoppingCartService } from '../../shopping-cart/service/shopping-cart.s
   styleUrls: ['./product.component.html'],
 })
 export class ProductComponent implements OnInit {
-  products?: IProduct[];
+  products: IProduct[] = [];
   filteredProducts?: IProduct[];
 
   categories: Category[] = [Category.BREAD, Category.FRUIT, Category.SEASONING, Category.DAIRY, Category.VEGETABLE];
@@ -19,7 +20,12 @@ export class ProductComponent implements OnInit {
   category?: string;
   cart: any;
 
-  constructor(private productService: ProductService, private shoppingCartService: ShoppingCartService) {}
+  constructor(
+    private productService: ProductService,
+    private shoppingCartService: ShoppingCartService,
+    protected confirmationService: ConfirmationService,
+    protected messageService: MessageService
+  ) {}
 
   ngOnInit(): void {
     this.fetchProducts();
@@ -37,6 +43,19 @@ export class ProductComponent implements OnInit {
   reset(): void {
     this.filteredProducts = this.products;
     this.category = undefined;
+  }
+
+  deleteProduct(selectedProduct?: IProduct): void {
+    this.confirmationService.confirm({
+      message: 'Are you sure you want to delete this product?',
+      header: 'Confirm',
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
+        const index = this.products.findIndex(product => product === selectedProduct);
+        this.products?.splice(index, 1);
+        this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Product Deleted', life: 3000 });
+      },
+    });
   }
 
   private fetchProducts(): void {

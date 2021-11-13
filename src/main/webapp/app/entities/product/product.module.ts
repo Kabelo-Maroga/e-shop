@@ -5,10 +5,16 @@ import { ProductDetailComponent } from './detail/product-detail.component';
 import { ProductUpdateComponent } from './update/product-update.component';
 import { ProductDeleteDialogComponent } from './delete/product-delete-dialog.component';
 import { ProductRoutingModule } from './route/product-routing.module';
+import { ToastModule } from 'primeng/toast';
+import { TableModule } from 'primeng/table';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ConfirmationService, MessageService } from 'primeng/api';
+import { RippleModule } from 'primeng/ripple';
 
 @NgModule({
-  imports: [SharedModule, ProductRoutingModule],
+  imports: [SharedModule, ProductRoutingModule, ToastModule, TableModule, ConfirmDialogModule, RippleModule],
   declarations: [ProductComponent, ProductDetailComponent, ProductUpdateComponent, ProductDeleteDialogComponent],
   entryComponents: [ProductDeleteDialogComponent],
+  providers: [MessageService, ConfirmationService],
 })
 export class ProductModule {}
