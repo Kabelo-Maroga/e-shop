@@ -1,5 +1,5 @@
 <div class="row justify-content-center">
-  <div class="col-8">
+  <div class="col-md-6">
     <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
       <h2 id="jhi-product-heading" data-cy="ProductCreateUpdateHeading" jhiTranslate="eshopApp.product.home.createOrEditLabel">
         Create or edit a Product
@@ -36,7 +36,6 @@
           <input type="text" class="form-control" name="imageUrl" id="field_imageUrl" data-cy="imageUrl" formControlName="imageUrl" />
         </div>
       </div>
-
       <div>
         <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
           <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
@@ -54,74 +53,13 @@
       </div>
     </form>
   </div>
+  <div class="col-md-6">
+    <div class="card">
+      <img [src]="editForm.get('imageUrl')!.value" class="card-img-top" />
+      <div class="card-body">
+        <h5 class="card-title">{{ editForm.get('title')!.value }}</h5>
+        <p class="card-text">{{ editForm.get('price')!.value | currency: 'R':true }}</p>
+      </div>
+    </div>
+  </div>
 </div>
-
-<!--<div class="row">-->
-<!--  <div class="col-md-6">-->
-<!--    <form #f="ngForm" (ngSubmit)="save(f.value)">-->
-<!--      <div class="form-group">-->
-<!--        <label for="title">Title</label>-->
-<!--        <input #title="ngModel" [(ngModel)]="product?.title"-->
-<!--               name="title" type="text"-->
-<!--               class="form-control" id="title" required>-->
-<!--        <div class="alert alert-danger" *ngIf="title.touched && title.invalid">-->
-<!--          Title is required.-->
-<!--        </div>-->
-<!--      </div>-->
-
-<!--      <div class="form-group">-->
-<!--        <label for="price">Price</label>-->
-<!--        <div class="input-group">-->
-<!--          <div class="input-group-prepend">-->
-<!--            <span class="input-group-text">$</span>-->
-<!--          </div>-->
-<!--          <input #price="ngModel" [(ngModel)]="product?.price"-->
-<!--                 name="price" type="number"-->
-<!--                 class="form-control" aria-label="Dollar amount (with dot and two decimal places)" id="price" required-->
-<!--                 [min]="0">-->
-<!--        </div>-->
-<!--        <div class="alert alert-danger" *ngIf="price.touched && price.invalid">-->
-<!--          <div *ngIf="price.errors?.required">Price is required.</div>-->
-<!--          <div *ngIf="price.errors?.min">Price should be 0 or greater.</div>-->
-<!--        </div>-->
-<!--      </div>-->
-
-<!--      <div class="form-group">-->
-<!--        <label for="category">Category</label>-->
-<!--        <select #category="ngModel" [(ngModel)]="product?.category"-->
-<!--                name="category"-->
-<!--                class="custom-select" id="category" required>-->
-<!--          <option selected>Choose...</option>-->
-<!--          <option *ngFor="let c of categories" [value]="c">-->
-<!--            {{c}}-->
-<!--          </option>-->
-<!--        </select>-->
-<!--        <div class="alert alert-danger" *ngIf="category.touched && category.invalid">-->
-<!--          Category is required.-->
-<!--        </div>-->
-<!--      </div>-->
-
-<!--      <div class="form-group">-->
-<!--        <label class="form-control-label" jhiTranslate="eshopApp.product.imageUrl" for="field_imageUrl">Image Url</label>-->
-<!--        <input type="text" class="form-control" name="imageUrl" id="field_imageUrl" data-cy="imageUrl" formControlName="imageUrl" required/>-->
-
-<!--&lt;!&ndash;        <div class="alert alert-danger" *ngIf="imageUrl.touched && imageUrl.invalid">&ndash;&gt;-->
-<!--&lt;!&ndash;          <div *ngIf="imageUrl.errors?.required">Image url is required.</div>&ndash;&gt;-->
-<!--&lt;!&ndash;          <div *ngIf="imageUrl.errors?.url">Please enter valid url.</div>&ndash;&gt;-->
-<!--&lt;!&ndash;        </div>&ndash;&gt;-->
-<!--      </div>-->
-<!--      <button type="submit" class="btn btn-primary">Save</button>-->
-<!--      <button type="button" (click)="delete()" class="btn btn-danger">Delete</button>-->
-<!--    </form>-->
-<!--  </div>-->
-
-<!--  <div class="col-md-6">-->
-<!--    <div class="card">-->
-<!--      &lt;!&ndash;      <img [src]="product?.imageUrl" class="card-img-top">&ndash;&gt;-->
-<!--      <div class="card-body">-->
-<!--        &lt;!&ndash;        <h5 class="card-title">{{product?.title}}</h5>&ndash;&gt;-->
-<!--        &lt;!&ndash;        <p class="card-text">{{product?.price | currency: 'R': true}}</p>&ndash;&gt;-->
-<!--      </div>-->
-<!--    </div>-->
-<!--  </div>-->
-<!--</div>-->

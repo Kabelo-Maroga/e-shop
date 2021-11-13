@@ -40,6 +40,6 @@ export class ProductsComponent implements OnInit {
   }
 
   private fetchShoppingCart(): void {
-    this.shoppingCartService.query().subscribe(res => (this.shoppingCartService.shoppingCart = res.body ?? []));
+    this.shoppingCartService.query().subscribe(res => (this.shoppingCartService.shoppingCarts = res.body ?? []));
   }
 }

@@ -1,8 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { ProductService } from '../entities/product/service/product.service';
-import { IProduct } from '../entities/product/product.model';
+import { Component } from '@angular/core';
 import { ShoppingCartService } from '../entities/shopping-cart/service/shopping-cart.service';
-import { Category } from '../entities/enumerations/category.model';
 
 @Component({
   selector: 'nav-bar',
@@ -11,4 +8,8 @@ import { Category } from '../entities/enumerations/category.model';
 })
 export class BsNavbarComponent {
   constructor(private shoppingCartService: ShoppingCartService) {}
+
+  itemsInTheCart(): number {
+    return this.shoppingCartService.numberOfItemsInTheCart();
+  }
 }

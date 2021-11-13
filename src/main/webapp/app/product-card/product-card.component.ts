@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { ShoppingCartService } from '../entities/shopping-cart/service/shopping-cart.service';
 import { IProduct } from '../entities/product/product.model';
-import { IShoppingCart } from '../entities/shopping-cart/shopping-cart.model';
+import { IShoppingCart, ShoppingCart } from '../entities/shopping-cart/shopping-cart.model';
 
 @Component({
   selector: 'product-card',
@@ -10,38 +10,62 @@ import { IShoppingCart } from '../entities/shopping-cart/shopping-cart.model';
 })
 export class ProductCardComponent {
   @Input() product?: IProduct;
-  @Input() shoppingCart?: IShoppingCart;
+  // @Input() shoppingCart?: IShoppingCart;
+
+  // shoppingCarts: IShoppingCart[] = [];
 
   constructor(public shoppingCartService: ShoppingCartService) {}
 
   addToCart(): void {
-    this.shoppingCartService.shoppingCart?.forEach(shoppingCart => {
-      if (shoppingCart.product === this.product) {
-        console.log('here');
-        shoppingCart.quantity = (shoppingCart.quantity ?? 0) + 1;
+    let productInCart = false;
+
+    this.shoppingCartService.shoppingCarts.forEach(shoppingCart => {
+      if (shoppingCart.product === this.product && shoppingCart.quantity) {
+        shoppingCart.quantity += 1;
+        productInCart = true;
       }
     });
-    // const params: any = {};
-    // params['productId.equals'] = this.product?.id;
-    // this.shoppingCartService.query(params).subscribe();
+
+    if (!productInCart) {
+      const cart = this.createFromForm();
+      this.shoppingCartService.shoppingCarts.push(cart);
+    }
+  }
+
+  createFromForm(): IShoppingCart {
+    return {
+      ...new ShoppingCart(),
+      quantity: 1,
+      // shopUser: this.editForm.get(['shopUser'])!.value,
+      product: this.product,
+    };
   }
 
   removeFromCart(): void {
-    this.shoppingCartService.shoppingCart?.forEach(shoppingCart => {
-      if (shoppingCart.product === this.product) {
-        shoppingCart.quantity = (shoppingCart.quantity ?? 0) - 1;
-      }
-    });
-    // const params: any = {};
-    // params['productId.equals'] = this.product?.id;
-    // this.shoppingCartService.query(params).subscribe();
+    if (this.shoppingCartService.shoppingCarts.length !== 0) {
+      this.shoppingCartService.shoppingCarts.forEach(shoppingCart => {
+        if (shoppingCart.product === this.product && shoppingCart.quantity === 0) {
+          const index = this.shoppingCartService.shoppingCarts.findIndex(cart => cart.product === this.product);
+          this.shoppingCartService.shoppingCarts.splice(index, 1);
+        }
+        if (shoppingCart.product === this.product && shoppingCart.quantity) {
+          shoppingCart.quantity -= 1;
+        }
+      });
+    }
   }
 
   getQuantity(): any {
-    const quantity: any = 0;
-    // if (!this.shoppingCart) {
-    //   return quantity;
-    // }
+    let quantity: any = 0;
+    if (this.shoppingCartService.shoppingCarts.length === 0) {
+      return quantity;
+    }
+
+    this.shoppingCartService.shoppingCarts.forEach(cart => {
+      if (cart.product === this.product) {
+        quantity = cart.quantity;
+      }
+    });
     // if (this.shoppingCartService.shoppingCart && this.product?.id) {
     //   quantity = this.shoppingCartService.shoppingCart[this.product.id].quantity;
     // }
@@ -51,6 +75,6 @@ export class ProductCardComponent {
     // }
 
     // let item = this.shoppingCart[this.product?.id];
-    return 2;
+    return quantity;
   }
 }

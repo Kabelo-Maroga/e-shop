@@ -12,7 +12,7 @@ export type EntityArrayResponseType = HttpResponse<IShoppingCart[]>;
 
 @Injectable({ providedIn: 'root' })
 export class ShoppingCartService {
-  public shoppingCart?: IShoppingCart[];
+  public shoppingCarts: IShoppingCart[] = [];
 
   protected resourceUrl = this.applicationConfigService.getEndpointFor('api/shopping-carts');
 
@@ -67,5 +67,15 @@ export class ShoppingCartService {
       return [...shoppingCartsToAdd, ...shoppingCartCollection];
     }
     return shoppingCartCollection;
+  }
+
+  numberOfItemsInTheCart(): number {
+    let itemCount = 0;
+    this.shoppingCarts.forEach(shoppingCart => {
+      if (shoppingCart.quantity) {
+        itemCount += shoppingCart.quantity;
+      }
+    });
+    return itemCount;
   }
 }
