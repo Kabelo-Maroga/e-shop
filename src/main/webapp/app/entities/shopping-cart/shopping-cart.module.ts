@@ -5,10 +5,31 @@ import { ShoppingCartDetailComponent } from './detail/shopping-cart-detail.compo
 import { ShoppingCartUpdateComponent } from './update/shopping-cart-update.component';
 import { ShoppingCartDeleteDialogComponent } from './delete/shopping-cart-delete-dialog.component';
 import { ShoppingCartRoutingModule } from './route/shopping-cart-routing.module';
+import { ToastModule } from 'primeng/toast';
+import { ToolbarModule } from 'primeng/toolbar';
+import { ButtonModule } from 'primeng/button';
+import { RippleModule } from 'primeng/ripple';
+import { FileUploadModule } from 'primeng/fileupload';
+import { TableModule } from 'primeng/table';
+import { RatingModule } from 'primeng/rating';
+import { ConfirmationService, MessageService } from 'primeng/api';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 
 @NgModule({
-  imports: [SharedModule, ShoppingCartRoutingModule],
+  imports: [
+    SharedModule,
+    ShoppingCartRoutingModule,
+    ToastModule,
+    ToolbarModule,
+    ButtonModule,
+    RippleModule,
+    FileUploadModule,
+    TableModule,
+    RatingModule,
+    ConfirmDialogModule,
+  ],
   declarations: [ShoppingCartComponent, ShoppingCartDetailComponent, ShoppingCartUpdateComponent, ShoppingCartDeleteDialogComponent],
   entryComponents: [ShoppingCartDeleteDialogComponent],
+  providers: [MessageService, ConfirmationService],
 })
 export class ShoppingCartModule {}

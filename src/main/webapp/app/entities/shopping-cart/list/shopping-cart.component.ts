@@ -29,7 +29,10 @@ export class ShoppingCartComponent implements OnInit {
     protected activatedRoute: ActivatedRoute,
     protected router: Router,
     protected modalService: NgbModal
-  ) {}
+  ) {
+    // this.shoppingCarts = this.shoppingCartService.shoppingCarts;
+    // console.log('shoppingCarts: ', this.shoppingCarts);
+  }
 
   loadPage(page?: number, dontNavigate?: boolean): void {
     this.isLoading = true;
@@ -54,6 +57,9 @@ export class ShoppingCartComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.shoppingCartService.query().subscribe(res => {
+      console.log(res.body);
+    });
     this.handleNavigation();
   }
 
@@ -109,6 +115,7 @@ export class ShoppingCartComponent implements OnInit {
     }
     this.shoppingCarts = data ?? [];
     this.ngbPaginationPage = this.page;
+    console.log('shoppingCarts: ', this.shoppingCarts);
   }
 
   protected onError(): void {

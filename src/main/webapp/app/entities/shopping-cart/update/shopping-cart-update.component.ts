@@ -11,12 +11,16 @@ import { IShopUser } from 'app/entities/shop-user/shop-user.model';
 import { ShopUserService } from 'app/entities/shop-user/service/shop-user.service';
 import { IProduct } from 'app/entities/product/product.model';
 import { ProductService } from 'app/entities/product/service/product.service';
+import { ConfirmationService, MessageService } from 'primeng/api';
 
 @Component({
   selector: 'jhi-shopping-cart-update',
   templateUrl: './shopping-cart-update.component.html',
+  styleUrls: ['./shopping-cart-update.component.scss'],
 })
 export class ShoppingCartUpdateComponent implements OnInit {
+  shoppingCarts: any[];
+
   isSaving = false;
 
   shopUsersCollection: IShopUser[] = [];
@@ -34,8 +38,12 @@ export class ShoppingCartUpdateComponent implements OnInit {
     protected shopUserService: ShopUserService,
     protected productService: ProductService,
     protected activatedRoute: ActivatedRoute,
+    protected confirmationService: ConfirmationService,
+    protected messageService: MessageService,
     protected fb: FormBuilder
-  ) {}
+  ) {
+    this.shoppingCarts = this.shoppingCartService.shoppingCarts;
+  }
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ shoppingCart }) => {
@@ -65,6 +73,42 @@ export class ShoppingCartUpdateComponent implements OnInit {
 
   trackProductById(index: number, item: IProduct): number {
     return item.id!;
+  }
+
+  addToCart(product: IProduct): void {
+    this.shoppingCartService.addToCart(product);
+  }
+
+  removeFromCart(product: IProduct): void {
+    this.shoppingCartService.removeFromCart(product);
+  }
+
+  getQuantity(product?: IProduct): number {
+    return this.shoppingCartService.getQuantity(product);
+  }
+
+  getTotalPrice(): number {
+    return this.shoppingCartService.totalPrice();
+  }
+
+  clearCart(): void {
+    this.shoppingCarts = [];
+    this.shoppingCartService.clearCart();
+  }
+
+  deleteSelectedProducts(product?: IProduct): void {
+    console.log('we here!');
+    this.confirmationService.confirm({
+      message: 'Are you sure you want to delete the selected products?',
+      header: 'Confirm',
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
+        this.shoppingCartService.deleteFromCart(product);
+        // this.products = this.products.filter(val => !this.selectedProducts.includes(val));
+        // this.selectedProducts = null;
+        this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Products Deleted', life: 3000 });
+      },
+    });
   }
 
   protected subscribeToSaveResponse(result: Observable<HttpResponse<IShoppingCart>>): void {

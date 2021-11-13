@@ -5,7 +5,8 @@ import { Observable } from 'rxjs';
 import { isPresent } from 'app/core/util/operators';
 import { ApplicationConfigService } from 'app/core/config/application-config.service';
 import { createRequestOption } from 'app/core/request/request-util';
-import { IShoppingCart, getShoppingCartIdentifier } from '../shopping-cart.model';
+import { IShoppingCart, getShoppingCartIdentifier, ShoppingCart } from '../shopping-cart.model';
+import { IProduct } from '../../product/product.model';
 
 export type EntityResponseType = HttpResponse<IShoppingCart>;
 export type EntityArrayResponseType = HttpResponse<IShoppingCart[]>;
@@ -69,6 +70,57 @@ export class ShoppingCartService {
     return shoppingCartCollection;
   }
 
+  addToCart(product?: IProduct): void {
+    let productInCart = false;
+
+    this.shoppingCarts.forEach(shoppingCart => {
+      if (shoppingCart.product === product && shoppingCart.quantity) {
+        shoppingCart.quantity += 1;
+        productInCart = true;
+      }
+    });
+    if (!productInCart) {
+      const cart = this.createFromForm(product);
+      this.shoppingCarts.push(cart);
+    }
+  }
+
+  createFromForm(product?: IProduct): IShoppingCart {
+    return {
+      ...new ShoppingCart(),
+      quantity: 1,
+      // shopUser: this.editForm.get(['shopUser'])!.value,
+      product,
+    };
+  }
+
+  removeFromCart(product?: IProduct): void {
+    if (this.shoppingCarts.length !== 0) {
+      this.shoppingCarts.forEach(shoppingCart => {
+        if (shoppingCart.product === product && shoppingCart.quantity === 0) {
+          const index = this.shoppingCarts.findIndex(cart => cart.product === product);
+          this.shoppingCarts.splice(index, 1);
+        }
+        if (shoppingCart.product === product && shoppingCart.quantity) {
+          shoppingCart.quantity -= 1;
+        }
+      });
+    }
+  }
+
+  getQuantity(product?: IProduct): number {
+    let quantity = 0;
+    if (this.shoppingCarts.length === 0) {
+      return quantity;
+    }
+    this.shoppingCarts.forEach(cart => {
+      if (cart.product === product && cart.quantity) {
+        quantity = cart.quantity;
+      }
+    });
+    return quantity;
+  }
+
   numberOfItemsInTheCart(): number {
     let itemCount = 0;
     this.shoppingCarts.forEach(shoppingCart => {
@@ -77,5 +129,24 @@ export class ShoppingCartService {
       }
     });
     return itemCount;
+  }
+
+  totalPrice(): number {
+    let totalPrice = 0;
+    this.shoppingCarts.forEach(shoppingCart => {
+      if (shoppingCart.quantity && shoppingCart.product?.price) {
+        totalPrice += shoppingCart.quantity * shoppingCart.product?.price;
+      }
+    });
+    return totalPrice;
+  }
+
+  deleteFromCart(product?: IProduct): void {
+    const index = this.shoppingCarts.findIndex(cart => cart.product === product);
+    this.shoppingCarts.splice(index, 1);
+  }
+
+  clearCart(): void {
+    this.shoppingCarts = [];
   }
 }
