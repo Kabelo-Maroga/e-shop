@@ -1,11 +1,11 @@
-import { NgModule, LOCALE_ID } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { registerLocaleData } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import locale from '@angular/common/locales/en';
 import { BrowserModule, Title } from '@angular/platform-browser';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
-import { TranslateModule, TranslateService, TranslateLoader, MissingTranslationHandler } from '@ngx-translate/core';
+import { MissingTranslationHandler, TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
 import { NgxWebstorageModule, SessionStorageService } from 'ngx-webstorage';
 import * as dayjs from 'dayjs';
 import { NgbDateAdapter, NgbDatepickerConfig } from '@ng-bootstrap/ng-bootstrap';
@@ -16,11 +16,10 @@ import { SharedModule } from 'app/shared/shared.module';
 import { AppRoutingModule } from './app-routing.module';
 import { HomeModule } from './home/home.module';
 import { EntityRoutingModule } from './entities/entity-routing.module';
-// jhipster-needle-angular-add-module-import JHipster will add new module here
 import { NgbDateDayjsAdapter } from './config/datepicker-adapter';
 import { fontAwesomeIcons } from './config/font-awesome-icons';
 import { httpInterceptorProviders } from 'app/core/interceptor/index';
-import { translatePartialLoader, missingTranslationHandler } from './config/translation.config';
+import { missingTranslationHandler, translatePartialLoader } from './config/translation.config';
 import { MainComponent } from './layouts/main/main.component';
 import { NavbarComponent } from './layouts/navbar/navbar.component';
 import { FooterComponent } from './layouts/footer/footer.component';
@@ -31,12 +30,14 @@ import { ProductsModule } from './products/products.module';
 import { FilterModule } from './products/filter/filter.module';
 import { ProductCardModule } from './product-card/product-card.module';
 import { BsNavbarModule } from './bs-navbar/bs-navbar.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   imports: [
     BrowserModule,
     SharedModule,
     HomeModule,
+    BrowserAnimationsModule,
 
     ProductsModule,
     FilterModule,

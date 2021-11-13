@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
 import { FormBuilder } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { finalize, map } from 'rxjs/operators';
 
@@ -40,6 +40,7 @@ export class ShoppingCartUpdateComponent implements OnInit {
     protected activatedRoute: ActivatedRoute,
     protected confirmationService: ConfirmationService,
     protected messageService: MessageService,
+    protected router: Router,
     protected fb: FormBuilder
   ) {
     this.shoppingCarts = this.shoppingCartService.shoppingCarts;
@@ -92,21 +93,30 @@ export class ShoppingCartUpdateComponent implements OnInit {
   }
 
   clearCart(): void {
-    this.shoppingCarts = [];
-    this.shoppingCartService.clearCart();
+    this.confirmationService.confirm({
+      message: 'Are you sure you want to clear the cart?',
+      header: 'Confirm',
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
+        this.shoppingCarts = [];
+        this.shoppingCartService.clearCart();
+        this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Shopping Cart Cleared', life: 3000 });
+        this.router.navigate(['/']);
+      },
+    });
   }
 
-  deleteSelectedProducts(product?: IProduct): void {
-    console.log('we here!');
+  deleteSelectedProduct(product?: IProduct): void {
     this.confirmationService.confirm({
-      message: 'Are you sure you want to delete the selected products?',
+      message: 'Are you sure you want to delete this product?',
       header: 'Confirm',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
         this.shoppingCartService.deleteFromCart(product);
-        // this.products = this.products.filter(val => !this.selectedProducts.includes(val));
-        // this.selectedProducts = null;
-        this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Products Deleted', life: 3000 });
+        this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Product Deleted', life: 3000 });
+        if (this.shoppingCartService.shoppingCarts.length === 0) {
+          this.router.navigate(['/']);
+        }
       },
     });
   }

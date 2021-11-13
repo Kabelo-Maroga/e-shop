@@ -8,38 +8,38 @@ import { ShoppingCartUpdateComponent } from '../update/shopping-cart-update.comp
 import { ShoppingCartRoutingResolveService } from './shopping-cart-routing-resolve.service';
 
 const shoppingCartRoute: Routes = [
+  // {
+  //   path: '',
+  //   component: ShoppingCartComponent,
+  //   data: {
+  //     defaultSort: 'id,asc',
+  //   },
+  //   canActivate: [UserRouteAccessService],
+  // },
+  // {
+  //   path: ':id/view',
+  //   component: ShoppingCartDetailComponent,
+  //   resolve: {
+  //     shoppingCart: ShoppingCartRoutingResolveService,
+  //   },
+  //   canActivate: [UserRouteAccessService],
+  // },
   {
     path: '',
-    component: ShoppingCartComponent,
-    data: {
-      defaultSort: 'id,asc',
-    },
-    canActivate: [UserRouteAccessService],
-  },
-  {
-    path: ':id/view',
-    component: ShoppingCartDetailComponent,
-    resolve: {
-      shoppingCart: ShoppingCartRoutingResolveService,
-    },
-    canActivate: [UserRouteAccessService],
-  },
-  {
-    path: 'new',
     component: ShoppingCartUpdateComponent,
     resolve: {
       shoppingCart: ShoppingCartRoutingResolveService,
     },
     canActivate: [UserRouteAccessService],
   },
-  {
-    path: ':id/edit',
-    component: ShoppingCartUpdateComponent,
-    resolve: {
-      shoppingCart: ShoppingCartRoutingResolveService,
-    },
-    canActivate: [UserRouteAccessService],
-  },
+  // {
+  //   path: ':id/edit',
+  //   component: ShoppingCartUpdateComponent,
+  //   resolve: {
+  //     shoppingCart: ShoppingCartRoutingResolveService,
+  //   },
+  //   canActivate: [UserRouteAccessService],
+  // },
 ];
 
 @NgModule({
