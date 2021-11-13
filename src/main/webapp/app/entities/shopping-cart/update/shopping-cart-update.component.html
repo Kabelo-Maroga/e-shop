@@ -2,7 +2,6 @@
 
 <div *ngIf="shoppingCarts.length > 0" style="margin-top: 80px">
   <strong style="font-size: xxx-large">Shopping Cart</strong>
-  <!--  <ng-template pTemplate="caption">-->
   <div style="padding: 5px 0px 45px">
     <button
       style="float: right; margin-left: 5px"
@@ -22,30 +21,7 @@
       (click)="clearCart()"
     ></button>
   </div>
-  <!--  </ng-template>-->
   <p-table [value]="shoppingCarts" responsiveLayout="scroll">
-    <!--    <ng-template pTemplate="caption">-->
-    <!--      <div class="p-d-flex p-ai-center p-jc-between">-->
-    <!--        Products-->
-    <!--        <button-->
-    <!--          style="float: right; margin-left: 5px"-->
-    <!--          pButton-->
-    <!--          type="button"-->
-    <!--          label="Checkout"-->
-    <!--          icon="pi pi-shopping-cart"-->
-    <!--          class="p-button-sm">-->
-    <!--        </button>-->
-    <!--        <button-->
-    <!--          style="float: right"-->
-    <!--          pButton-->
-    <!--          type="button"-->
-    <!--          label="Clear Cart"-->
-    <!--          icon="pi pi-trash"-->
-    <!--          class="p-button-warning p-button-sm"-->
-    <!--          (click)="clearCart()">-->
-    <!--        </button>-->
-    <!--      </div>-->
-    <!--    </ng-template>-->
     <ng-template pTemplate="header">
       <tr>
         <th>Image</th>
@@ -88,10 +64,8 @@
         </td>
       </tr>
     </ng-template>
-    <ng-template pTemplate="summary">
-      <div style="float: right; padding-top: 15px" class="p-d-flex p-ai-end p-jc-between">
-        Total Price: {{ getTotalPrice() | currency: 'R' }}
-      </div>
+    <ng-template class="p-datatable p-datatable-footer" pTemplate="summary">
+      <div style="float: right" class="p-d-flex p-ai-end p-jc-between">Total Price: {{ getTotalPrice() | currency: 'R' }}</div>
     </ng-template>
   </p-table>
   <p-confirmDialog [style]="{ width: '450px' }"></p-confirmDialog>

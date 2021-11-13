@@ -9,7 +9,8 @@ import { Registration } from './register.model';
 export class RegisterService {
   constructor(private http: HttpClient, private applicationConfigService: ApplicationConfigService) {}
 
-  save(registration: Registration): Observable<{}> {
+  save(registration: { password: any; langKey: string; login: any; email: any; activated: boolean }): Observable<{}> {
+    console.log('registration --->', registration);
     return this.http.post(this.applicationConfigService.getEndpointFor('api/register'), registration);
   }
 }
