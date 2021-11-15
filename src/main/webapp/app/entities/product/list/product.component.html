@@ -1,9 +1,10 @@
 <p-toast></p-toast>
 <div style="margin-top: 80px">
-  <strong style="font-size: xxx-large">Products</strong>
+  <strong style="font-size: xx-large">Products</strong>
+  <hr />
   <div *ngIf="filteredProducts" style="margin-top: 30px">
     <button
-      [routerLink]="['/product/new']"
+      (click)="show2()"
       style="float: right; margin-bottom: 5px"
       pButton
       type="button"
@@ -35,13 +36,7 @@
           <td>{{ product.title }}</td>
           <td>{{ product.price | currency: 'R' }}</td>
           <td style="padding-left: 60px">
-            <button
-              pButton
-              pRipple
-              icon="pi pi-pencil"
-              class="p-button-rounded p-button-success p-mr-2"
-              [routerLink]="['/product', product.id, 'edit']"
-            ></button>
+            <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success p-mr-2" (click)="show(product)"></button>
             <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="deleteProduct(product)"></button>
           </td>
         </tr>

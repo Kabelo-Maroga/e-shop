@@ -6,8 +6,11 @@ import { Account } from '../core/auth/account.model';
 import { Subject } from 'rxjs';
 import { AccountService } from '../core/auth/account.service';
 import { takeUntil } from 'rxjs/operators';
-import { Role } from '../entities/enumerations/role.model';
 import { Authority } from '../config/authority.constants';
+import { MessageService } from 'primeng/api';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { ShoppingCartUpdateComponent } from '../entities/shopping-cart/update/shopping-cart-update.component';
+import { ProductUpdateComponent } from '../entities/product/update/product-update.component';
 
 @Component({
   selector: 'nav-bar',
@@ -17,11 +20,15 @@ import { Authority } from '../config/authority.constants';
 export class BsNavbarComponent {
   isNavbarCollapsed?: boolean;
   account: Account | null = null;
+  ref?: DynamicDialogRef;
+
   private readonly destroy$ = new Subject<void>();
 
   constructor(
     private shoppingCartService: ShoppingCartService,
     private accountService: AccountService,
+    private messageService: MessageService,
+    private dialogService: DialogService,
     private loginService: LoginService,
     private router: Router
   ) {}
@@ -57,7 +64,20 @@ export class BsNavbarComponent {
   }
 
   ngOnDestroy(): void {
+    if (this.ref) {
+      this.ref.close();
+    }
     this.destroy$.next();
     this.destroy$.complete();
+  }
+
+  show1(): void {
+    this.ref = this.dialogService.open(ShoppingCartUpdateComponent, {
+      header: 'Shopping Cart',
+      width: '70%',
+      style: { padding: '0px' },
+      contentStyle: { 'max-height': '500px', overflow: 'auto' },
+      baseZIndex: 10000,
+    });
   }
 }

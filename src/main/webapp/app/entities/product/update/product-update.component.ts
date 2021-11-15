@@ -63,7 +63,9 @@ export class ProductUpdateComponent implements OnInit {
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ product }) => {
-      this.updateForm(product);
+      if (this.productService.selectedProduct) {
+        this.updateForm(this.productService.selectedProduct);
+      }
     });
   }
 

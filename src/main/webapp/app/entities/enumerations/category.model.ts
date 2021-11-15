@@ -1,11 +1,11 @@
 export enum Category {
-  FRUIT = 'FRUIT',
+  FRUIT = 'Fruit',
 
-  VEGETABLE = 'VEGETABLE',
+  VEGETABLE = 'Vegetable',
 
-  BREAD = 'BREAD',
+  BREAD = 'Bread',
 
-  DAIRY = 'DAIRY',
+  DAIRY = 'Diary',
 
-  SEASONING = 'SEASONING',
+  SEASONING = 'Seasoning',
 }

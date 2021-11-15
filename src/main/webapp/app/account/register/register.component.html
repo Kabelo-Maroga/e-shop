@@ -1,7 +1,7 @@
 <div>
-  <div class="row justify-content-center">
+  <div class="row justify-content-center margin-top">
     <div class="col-md-8">
-      <h1 jhiTranslate="register.title" data-cy="registerTitle">Registration</h1>
+      <h1 class="margin-bottom" jhiTranslate="register.title" data-cy="registerTitle">Registration</h1>
 
       <div class="alert alert-success" *ngIf="success" jhiTranslate="register.messages.success">
         <strong>Registration saved!</strong> Please check your email for confirmation.
@@ -224,12 +224,10 @@
       </form>
 
       <div class="mt-3 alert alert-warning">
-        <span jhiTranslate="global.messages.info.authenticated.prefix">If you want to </span>
-        <a class="alert-link" routerLink="/login" jhiTranslate="global.messages.info.authenticated.link">sign in</a
-        ><span jhiTranslate="global.messages.info.authenticated.suffix"
-          >, you can try the default accounts:<br />- Administrator (login="admin" and password="admin") <br />- User (login="user" and
-          password="user").</span
-        >
+        <span>Click here to </span>
+        <a class="alert-link" routerLink="/login" jhiTranslate="global.messages.info.authenticated.link">sign in</a>
+        <!--        <span jhiTranslate="global.messages.info.authenticated.suffix">, you can try the default accounts:<br/>- Administrator (login="admin" and password="admin") <br/>- User (login="user" and-->
+        <!--          password="user").</span>-->
       </div>
     </div>
   </div>

@@ -1,7 +1,7 @@
 <div>
-  <div class="row justify-content-center">
+  <div class="row justify-content-center margin-top">
     <div class="col-lg-6 col-md-8 col-sm-10">
-      <h1 jhiTranslate="login.title" data-cy="loginTitle">Sign in</h1>
+      <h1 class="margin-bottom" jhiTranslate="login.title" data-cy="loginTitle">Sign in</h1>
       <div class="alert alert-danger" *ngIf="authenticationError" jhiTranslate="login.messages.error.authentication" data-cy="loginError">
         <strong>Failed to sign in!</strong> Please check your credentials and try again.
       </div>
@@ -33,20 +33,22 @@
           />
         </div>
 
-        <div class="form-check">
-          <label class="form-check-label" for="rememberMe">
-            <input class="form-check-input" type="checkbox" name="rememberMe" id="rememberMe" formControlName="rememberMe" />
-            <span jhiTranslate="login.form.rememberme">Remember me</span>
-          </label>
-        </div>
+        <!--        <div class="form-check">-->
+        <!--          <label class="form-check-label" for="rememberMe">-->
+        <!--            <input class="form-check-input" type="checkbox" name="rememberMe" id="rememberMe"-->
+        <!--                   formControlName="rememberMe"/>-->
+        <!--            <span jhiTranslate="login.form.rememberme">Remember me</span>-->
+        <!--          </label>-->
+        <!--        </div>-->
 
-        <button type="submit" class="btn btn-primary" jhiTranslate="login.form.button" data-cy="submit">Sign in</button>
+        <button icon="pi pi-sign-in" type="submit" class="btn btn-primary" data-cy="submit">Sign in</button>
       </form>
-      <div class="mt-3 alert alert-warning">
-        <a class="alert-link" routerLink="/account/reset/request" jhiTranslate="login.password.forgot" data-cy="forgetYourPasswordSelector"
-          >Did you forget your password?</a
-        >
-      </div>
+      <!--      <div class="mt-3 alert alert-warning">-->
+      <!--        <a class="alert-link" routerLink="/account/reset/request" jhiTranslate="login.password.forgot"-->
+      <!--           data-cy="forgetYourPasswordSelector"-->
+      <!--        >Did you forget your password?</a-->
+      <!--        >-->
+      <!--      </div>-->
 
       <div class="alert alert-warning">
         <span jhiTranslate="global.messages.info.register.noaccount">You don't have an account yet?</span>

@@ -5,7 +5,7 @@
         <a class="navbar-brand" [routerLink]="['/']">
           <button icon="pi pi-home" pButton type="button" class="p-button-success p-button-raised p-button-rounded"></button>
         </a>
-        <a [routerLink]="['/shopping-cart']">
+        <a (click)="show1()">
           <button
             style="margin-bottom: 5px"
             icon="pi pi-shopping-cart"
