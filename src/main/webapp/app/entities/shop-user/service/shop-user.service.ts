@@ -12,6 +12,7 @@ export type EntityArrayResponseType = HttpResponse<IShopUser[]>;
 
 @Injectable({ providedIn: 'root' })
 export class ShopUserService {
+  public shopUser?: IShopUser;
   protected resourceUrl = this.applicationConfigService.getEndpointFor('api/shop-users');
 
   constructor(protected http: HttpClient, protected applicationConfigService: ApplicationConfigService) {}

@@ -19,9 +19,10 @@ import { ConfirmationService, MessageService } from 'primeng/api';
   styleUrls: ['./shopping-cart-update.component.scss'],
 })
 export class ShoppingCartUpdateComponent implements OnInit {
-  shoppingCarts: any[];
+  shoppingCarts: IShoppingCart[] = [];
 
   isSaving = false;
+  isLoading = false;
 
   shopUsersCollection: IShopUser[] = [];
   productsSharedCollection: IProduct[] = [];
@@ -42,15 +43,26 @@ export class ShoppingCartUpdateComponent implements OnInit {
     protected messageService: MessageService,
     protected router: Router,
     protected fb: FormBuilder
-  ) {
-    this.shoppingCarts = this.shoppingCartService.shoppingCarts;
-  }
+  ) {}
 
   ngOnInit(): void {
-    this.activatedRoute.data.subscribe(({ shoppingCart }) => {
-      this.updateForm(shoppingCart);
+    this.isLoading = true;
+    this.shoppingCartService.query().subscribe(res => {
+      this.shoppingCarts = this.shoppingCartService.shoppingCarts = res.body ?? [];
+      this.isLoading = false;
+    });
 
-      this.loadRelationshipsOptions();
+    // if (this.shoppingCarts) {
+    //   this.shoppingCartService.updateCart(this.shoppingCartService.shoppingCarts).subscribe(res => {
+    //     this.shoppingCarts = res.body ?? [];
+    //     this.isLoading = false;
+    //   });
+    // }
+  }
+
+  createCart(): void {
+    this.shoppingCarts?.forEach(shoppingCart => {
+      this.shoppingCartService.create(shoppingCart).subscribe();
     });
   }
 
@@ -100,7 +112,12 @@ export class ShoppingCartUpdateComponent implements OnInit {
       accept: () => {
         this.shoppingCarts = [];
         this.shoppingCartService.clearCart();
-        this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Shopping Cart Cleared', life: 3000 });
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Successful',
+          detail: 'Shopping Cart Cleared',
+          life: 3000,
+        });
         this.router.navigate(['/']);
       },
     });
@@ -114,7 +131,7 @@ export class ShoppingCartUpdateComponent implements OnInit {
       accept: () => {
         this.shoppingCartService.deleteFromCart(product);
         this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Product Deleted', life: 3000 });
-        if (this.shoppingCartService.shoppingCarts.length === 0) {
+        if (this.shoppingCartService.shoppingCarts?.length === 0) {
           this.router.navigate(['/']);
         }
       },

@@ -15,8 +15,13 @@ Navbar
   width: 1.75em;
 }
 
+.badge-warning {
+  position: absolute;
+  margin-left: -10px;
+}
+
 .navbar {
-  padding: 0.2rem 1rem;
+  padding: 0.2rem 17%;
 
   ul.navbar-nav {
     .nav-item {

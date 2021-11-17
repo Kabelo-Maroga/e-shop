@@ -6,6 +6,7 @@ import com.kabelo.eshop.service.dto.ShoppingCartDTO;
 import com.kabelo.eshop.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -69,7 +70,7 @@ public class ShoppingCartResource {
     /**
      * {@code PUT  /shopping-carts/:id} : Updates an existing shoppingCart.
      *
-     * @param id the id of the shoppingCartDTO to save.
+     * @param id              the id of the shoppingCartDTO to save.
      * @param shoppingCartDTO the shoppingCartDTO to update.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated shoppingCartDTO,
      * or with status {@code 400 (Bad Request)} if the shoppingCartDTO is not valid,
@@ -103,7 +104,7 @@ public class ShoppingCartResource {
     /**
      * {@code PATCH  /shopping-carts/:id} : Partial updates given fields of an existing shoppingCart, field will ignore if it is null
      *
-     * @param id the id of the shoppingCartDTO to save.
+     * @param id              the id of the shoppingCartDTO to save.
      * @param shoppingCartDTO the shoppingCartDTO to update.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated shoppingCartDTO,
      * or with status {@code 400 (Bad Request)} if the shoppingCartDTO is not valid,
@@ -136,6 +137,16 @@ public class ShoppingCartResource {
         );
     }
 
+    @PostMapping("/shopping-carts/update")
+    public ResponseEntity<List<ShoppingCartDTO>> createCart(@RequestBody List<ShoppingCartDTO> shoppingCartDTOs) {
+        List<ShoppingCartDTO> carts = new ArrayList<>();
+        shoppingCartDTOs.forEach(shoppingCartDTO -> {
+            final ShoppingCartDTO cart = shoppingCartService.save(shoppingCartDTO);
+            carts.add(cart);
+        });
+        return ResponseEntity.ok().body(carts);
+    }
+
     /**
      * {@code GET  /shopping-carts} : get all the shoppingCarts.
      *
@@ -147,6 +158,8 @@ public class ShoppingCartResource {
         log.debug("REST request to get a page of ShoppingCarts");
         Page<ShoppingCartDTO> page = shoppingCartService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        System.out.println("Logs");
+        System.out.println(ResponseEntity.ok().headers(headers).body(page.getContent()));
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 

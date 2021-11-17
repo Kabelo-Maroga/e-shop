@@ -1,9 +1,14 @@
-import { Component, ViewChild, OnInit, AfterViewInit, ElementRef } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { LoginService } from 'app/login/login.service';
 import { AccountService } from 'app/core/auth/account.service';
+import { IShopUser, ShopUser } from '../entities/shop-user/shop-user.model';
+import { Account } from '../core/auth/account.model';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import { ShopUserService } from '../entities/shop-user/service/shop-user.service';
 
 @Component({
   selector: 'jhi-login',
@@ -13,24 +18,27 @@ import { AccountService } from 'app/core/auth/account.service';
 export class LoginComponent implements OnInit, AfterViewInit {
   @ViewChild('username', { static: false })
   username!: ElementRef;
-
   authenticationError = false;
+  account: Account | null = null;
 
   loginForm = this.fb.group({
     username: [null, [Validators.required]],
     password: [null, [Validators.required]],
     rememberMe: [false],
   });
+  private readonly destroy$ = new Subject<void>();
 
   constructor(
     private accountService: AccountService,
     private loginService: LoginService,
+    private shopUserService: ShopUserService,
     private router: Router,
     private fb: FormBuilder
   ) {}
 
   ngOnInit(): void {
     // if already authenticated then navigate to home page
+    this.getUserAccount();
     this.accountService.identity().subscribe(() => {
       if (this.accountService.isAuthenticated()) {
         this.router.navigate(['']);
@@ -59,5 +67,32 @@ export class LoginComponent implements OnInit, AfterViewInit {
         },
         () => (this.authenticationError = true)
       );
+  }
+
+  getUserAccount(): void {
+    this.accountService
+      .getAuthenticationState()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(account => {
+        this.account = account;
+        const params: any = {};
+        params['name.equals'] = this.account?.login;
+        this.shopUserService.query(params).subscribe(res => {
+          const user = res.body;
+          if (user === null) {
+            this.shopUserService.shopUser = this.createShopUser();
+          } else {
+            this.shopUserService.shopUser = user[0];
+          }
+        });
+      });
+  }
+
+  createShopUser(): IShopUser {
+    return {
+      ...new ShopUser(),
+      name: this.account?.login,
+      email: this.account?.email,
+    };
   }
 }

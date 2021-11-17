@@ -1,22 +1,26 @@
-<div class="card">
-  <img [src]="product?.imageUrl" class="card-img-top" alt="Card image cap" />
+<div class="card" style="border-radius: 7px">
+  <img style="border-radius: 7px; height: 250px" [src]="product?.imageUrl" class="card-img-top" alt="Card image cap" />
   <div class="card-body">
     <h5 class="card-title">{{ product?.title }}</h5>
-    <p class="card-text">{{ product?.price | currency: 'R':true }}</p>
+    <span class="card-text">{{ product?.price | currency: 'R':true }}</span>
+    <span>{{ shoppingCart?.quantity }}</span>
+    <span style="float: right"
+      ><p-button (click)="addToCart()" [disabled]="isAddedToCart()" icon="pi pi-shopping-cart" pTooltip="Add to Cart"></p-button
+    ></span>
   </div>
-  <div class="card-footer">
-    <button *ngIf="getQuantity() === 0; else updateQuantity" (click)="addToCart()" class="btn btn-secondary btn-block">Add to Cart</button>
+  <!--  <div class="card-footer">-->
+  <!--    <button *ngIf="shoppingCart?.quantity === 0; else updateQuantity" (click)="addToCart()" class="btn btn-secondary btn-block">Add to Cart</button>-->
 
-    <ng-template #updateQuantity>
-      <div class="row no-gutters">
-        <div class="col-2">
-          <button (click)="removeFromCart()" class="btn btn-secondary btn-block">-</button>
-        </div>
-        <div class="col text-center padding">{{ getQuantity() }} in cart</div>
-        <div class="col-2">
-          <button (click)="addToCart()" class="btn btn-secondary btn-block">+</button>
-        </div>
-      </div>
-    </ng-template>
-  </div>
+  <!--    <ng-template #updateQuantity>-->
+  <!--      <div *ngIf="shoppingCart && shoppingCart.quantity" class="row no-gutters">-->
+  <!--        <div class="col-2">-->
+  <!--          <button (click)="removeFromCart()" class="btn btn-secondary btn-block">-</button>-->
+  <!--        </div>-->
+  <!--        <div class="col text-center padding">{{ shoppingCart.quantity }} in cart</div>-->
+  <!--        <div class="col-2">-->
+  <!--          <button (click)="addToCart()" class="btn btn-secondary btn-block">+</button>-->
+  <!--        </div>-->
+  <!--      </div>-->
+  <!--    </ng-template>-->
+  <!--  </div>-->
 </div>

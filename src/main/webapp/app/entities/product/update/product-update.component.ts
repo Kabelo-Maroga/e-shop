@@ -59,7 +59,12 @@ export class ProductUpdateComponent implements OnInit {
     imageUrl: [],
   });
 
-  constructor(protected productService: ProductService, protected activatedRoute: ActivatedRoute, protected fb: FormBuilder) {}
+  constructor(
+    protected productService: ProductService,
+    protected activatedRoute: ActivatedRoute,
+    protected fb: FormBuilder,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ product }) => {
@@ -70,13 +75,14 @@ export class ProductUpdateComponent implements OnInit {
   }
 
   previousState(): void {
-    window.history.back();
+    this.productService.modalRef?.close();
   }
 
   save(): void {
     this.isSaving = true;
     const product = this.createFromForm();
-    if (product.id !== undefined) {
+    this.productService.selectedProduct = product;
+    if (product.id !== null) {
       this.subscribeToSaveResponse(this.productService.update(product));
     } else {
       this.subscribeToSaveResponse(this.productService.create(product));
@@ -91,6 +97,9 @@ export class ProductUpdateComponent implements OnInit {
   }
 
   protected onSaveSuccess(): void {
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    this.router.onSameUrlNavigation = 'reload';
+    this.router.navigate(['product']);
     this.previousState();
   }
 

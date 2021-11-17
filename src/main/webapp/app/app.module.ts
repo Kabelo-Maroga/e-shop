@@ -31,6 +31,7 @@ import { FilterModule } from './products/filter/filter.module';
 import { ProductCardModule } from './product-card/product-card.module';
 import { BsNavbarModule } from './bs-navbar/bs-navbar.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ButtonModule } from 'primeng/button';
 
 @NgModule({
   imports: [
@@ -62,6 +63,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
       },
     }),
     BsNavbarModule,
+    ButtonModule,
   ],
   providers: [
     Title,

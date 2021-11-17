@@ -6,6 +6,7 @@ import { isPresent } from 'app/core/util/operators';
 import { ApplicationConfigService } from 'app/core/config/application-config.service';
 import { createRequestOption } from 'app/core/request/request-util';
 import { IProduct, getProductIdentifier } from '../product.model';
+import { DynamicDialogRef } from 'primeng/dynamicdialog';
 
 export type EntityResponseType = HttpResponse<IProduct>;
 export type EntityArrayResponseType = HttpResponse<IProduct[]>;
@@ -13,6 +14,7 @@ export type EntityArrayResponseType = HttpResponse<IProduct[]>;
 @Injectable({ providedIn: 'root' })
 export class ProductService {
   public selectedProduct?: IProduct;
+  public modalRef?: DynamicDialogRef;
   protected resourceUrl = this.applicationConfigService.getEndpointFor('api/products');
 
   constructor(protected http: HttpClient, protected applicationConfigService: ApplicationConfigService) {}

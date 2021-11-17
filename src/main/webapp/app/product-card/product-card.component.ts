@@ -1,6 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ShoppingCartService } from '../entities/shopping-cart/service/shopping-cart.service';
 import { IProduct } from '../entities/product/product.model';
+import { IShoppingCart } from '../entities/shopping-cart/shopping-cart.model';
 
 @Component({
   selector: 'product-card',
@@ -9,11 +10,29 @@ import { IProduct } from '../entities/product/product.model';
 })
 export class ProductCardComponent {
   @Input() product?: IProduct;
+  @Input() shoppingCart?: IShoppingCart | undefined;
 
-  constructor(public shoppingCartService: ShoppingCartService) {}
+  constructor(public shoppingCartService: ShoppingCartService) {
+    console.log('product: ', this.product);
+    console.log('shopping cart: ', this.shoppingCart);
+  }
+
+  //
+  // ngOnInit(): void {
+  //   this.shoppingCartService.query().subscribe(res => {
+  //     this.shoppingCart = res.body;
+  //     console.log('this.shoppingCart: ', this.shoppingCart);
+  //   });
+  // }
 
   addToCart(): void {
-    this.shoppingCartService.addToCart(this.product);
+    if (!this.isAddedToCart()) {
+      this.shoppingCartService.addToCart(this.product);
+    }
+  }
+
+  isAddedToCart(): boolean {
+    return this.shoppingCart?.quantity !== null && this.shoppingCart?.quantity !== undefined;
   }
 
   removeFromCart(): void {
@@ -22,5 +41,9 @@ export class ProductCardComponent {
 
   getQuantity(): number {
     return this.shoppingCartService.getQuantity(this.product);
+
+    // const quantity = this.shoppingCart?.find(cart => cart.product === this.product)?.quantity;
+    // console.log('quantity: ', quantity);
+    // return (quantity) ? quantity : 0;
   }
 }

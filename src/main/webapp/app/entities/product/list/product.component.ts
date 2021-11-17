@@ -57,15 +57,18 @@ export class ProductComponent implements OnInit {
     this.category = undefined;
   }
 
-  deleteProduct(selectedProduct?: IProduct): void {
+  deleteProduct(selectedProduct: IProduct): void {
     this.confirmationService.confirm({
       message: 'Are you sure you want to delete this product?',
       header: 'Confirm',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
-        const index = this.products.findIndex(product => product === selectedProduct);
-        this.products?.splice(index, 1);
-        this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Product Deleted', life: 3000 });
+        if (selectedProduct.id) {
+          const index = this.products.findIndex(product => product === selectedProduct);
+          this.products?.splice(index, 1);
+          this.productService.delete(selectedProduct.id).subscribe();
+          this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Product Deleted', life: 3000 });
+        }
       },
     });
   }
@@ -79,9 +82,11 @@ export class ProductComponent implements OnInit {
       contentStyle: { 'max-height': '500px', overflow: 'auto' },
       baseZIndex: 10000,
     });
+    this.productService.modalRef = this.ref;
   }
 
   show2(): void {
+    this.productService.selectedProduct = undefined;
     this.ref = this.dialogService.open(ProductUpdateComponent, {
       header: 'New Product',
       width: '70%',
@@ -89,109 +94,13 @@ export class ProductComponent implements OnInit {
       contentStyle: { 'max-height': '500px', overflow: 'auto' },
       baseZIndex: 10000,
     });
+    this.productService.modalRef = this.ref;
   }
 
   private fetchProducts(): void {
-    this.productService.query().subscribe(res => (this.products = this.filteredProducts = res.body ?? []));
+    this.productService.query().subscribe(res => {
+      this.products = this.filteredProducts = res.body ?? [];
+      this.products.reverse();
+    });
   }
-
-  // products?: IProduct[];
-  // isLoading = false;
-  // totalItems = 0;
-  // itemsPerPage = ITEMS_PER_PAGE;
-  // page?: number;
-  // predicate!: string;
-  // ascending!: boolean;
-  // ngbPaginationPage = 1;
-  //
-  // constructor(
-  //   protected productService: ProductService,
-  //   protected activatedRoute: ActivatedRoute,
-  //   protected router: Router,
-  //   protected modalService: NgbModal
-  // ) {}
-  //
-  // loadPage(page?: number, dontNavigate?: boolean): void {
-  //   this.isLoading = true;
-  //   const pageToLoad: number = page ?? this.page ?? 1;
-  //
-  //   this.productService
-  //     .query({
-  //       page: pageToLoad - 1,
-  //       size: this.itemsPerPage,
-  //       sort: this.sort(),
-  //     })
-  //     .subscribe(
-  //       (res: HttpResponse<IProduct[]>) => {
-  //         this.isLoading = false;
-  //         this.onSuccess(res.body, res.headers, pageToLoad, !dontNavigate);
-  //       },
-  //       () => {
-  //         this.isLoading = false;
-  //         this.onError();
-  //       }
-  //     );
-  // }
-  //
-  // ngOnInit(): void {
-  //   this.handleNavigation();
-  // }
-  //
-  // trackId(index: number, item: IProduct): number {
-  //   return item.id!;
-  // }
-  //
-  // delete(product: IProduct): void {
-  //   const modalRef = this.modalService.open(ProductDeleteDialogComponent, { size: 'lg', backdrop: 'static' });
-  //   modalRef.componentInstance.product = product;
-  //   // unsubscribe not needed because closed completes on modal close
-  //   modalRef.closed.subscribe(reason => {
-  //     if (reason === 'deleted') {
-  //       this.loadPage();
-  //     }
-  //   });
-  // }
-  //
-  // protected sort(): string[] {
-  //   const result = [this.predicate + ',' + (this.ascending ? ASC : DESC)];
-  //   if (this.predicate !== 'id') {
-  //     result.push('id');
-  //   }
-  //   return result;
-  // }
-  //
-  // protected handleNavigation(): void {
-  //   combineLatest([this.activatedRoute.data, this.activatedRoute.queryParamMap]).subscribe(([data, params]) => {
-  //     const page = params.get('page');
-  //     const pageNumber = +(page ?? 1);
-  //     const sort = (params.get(SORT) ?? data['defaultSort']).split(',');
-  //     const predicate = sort[0];
-  //     const ascending = sort[1] === ASC;
-  //     if (pageNumber !== this.page || predicate !== this.predicate || ascending !== this.ascending) {
-  //       this.predicate = predicate;
-  //       this.ascending = ascending;
-  //       this.loadPage(pageNumber, true);
-  //     }
-  //   });
-  // }
-  //
-  // protected onSuccess(data: IProduct[] | null, headers: HttpHeaders, page: number, navigate: boolean): void {
-  //   this.totalItems = Number(headers.get('X-Total-Count'));
-  //   this.page = page;
-  //   if (navigate) {
-  //     this.router.navigate(['/product'], {
-  //       queryParams: {
-  //         page: this.page,
-  //         size: this.itemsPerPage,
-  //         sort: this.predicate + ',' + (this.ascending ? ASC : DESC),
-  //       },
-  //     });
-  //   }
-  //   this.products = data ?? [];
-  //   this.ngbPaginationPage = this.page;
-  // }
-  //
-  // protected onError(): void {
-  //   this.ngbPaginationPage = this.page ?? 1;
-  // }
 }

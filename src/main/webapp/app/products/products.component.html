@@ -1,5 +1,9 @@
-<div class="row">
-  <div class="col-3">
+<div *ngIf="isLoading" style="margin-top: 20%; margin-left: 50%">
+  <p-progressSpinner></p-progressSpinner>
+</div>
+
+<div *ngIf="!isLoading" class="row">
+  <div class="col-3" style="margin-top: 20px">
     <!--    <shop-filter [category] = "category"></shop-filter>-->
     <div class="sticky-top">
       <div class="list-group">
@@ -19,10 +23,10 @@
 
   <div class="col">
     <div class="product-list">
-      <div class="row">
+      <div *ngIf="cart" class="row">
         <ng-container *ngFor="let product of filteredProducts; let i = index">
           <div class="col">
-            <product-card [product]="product"></product-card>
+            <product-card [product]="product" [shoppingCart]="getShoppingCart(product)"></product-card>
           </div>
           <div *ngIf="(i + 1) % 2 === 0" class="w-100"></div>
         </ng-container>

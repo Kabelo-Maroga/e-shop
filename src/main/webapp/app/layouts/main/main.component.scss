@@ -5,3 +5,12 @@
 body {
   background: #212529 !important;
 }
+
+:host ::ng-deep .ui-dialog .ui-dialog-titlebar {
+  background-color: red !important;
+}
+
+.p-dialog .p-dialog-header .p-dialog-title {
+  font-weight: normal !important;
+  font-size: 1.25rem;
+}

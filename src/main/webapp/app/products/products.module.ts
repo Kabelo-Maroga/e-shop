@@ -7,9 +7,10 @@ import { ProductsComponent } from './products.component';
 import { ProductCardModule } from '../product-card/product-card.module';
 import { FilterModule } from './filter/filter.module';
 import { ButtonModule } from 'primeng/button';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
 @NgModule({
-  imports: [SharedModule, ProductCardModule, RouterModule.forChild([PRODUCTS_ROUTE]), FilterModule, ButtonModule],
+  imports: [SharedModule, ProductCardModule, RouterModule.forChild([PRODUCTS_ROUTE]), FilterModule, ButtonModule, ProgressSpinnerModule],
   declarations: [ProductsComponent],
 })
 export class ProductsModule {}

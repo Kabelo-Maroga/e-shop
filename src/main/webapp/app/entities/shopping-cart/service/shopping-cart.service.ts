@@ -7,6 +7,8 @@ import { ApplicationConfigService } from 'app/core/config/application-config.ser
 import { createRequestOption } from 'app/core/request/request-util';
 import { IShoppingCart, getShoppingCartIdentifier, ShoppingCart } from '../shopping-cart.model';
 import { IProduct } from '../../product/product.model';
+import { IShopUser, ShopUser } from '../../shop-user/shop-user.model';
+import { ShopUserService } from '../../shop-user/service/shop-user.service';
 
 export type EntityResponseType = HttpResponse<IShoppingCart>;
 export type EntityArrayResponseType = HttpResponse<IShoppingCart[]>;
@@ -17,7 +19,11 @@ export class ShoppingCartService {
 
   protected resourceUrl = this.applicationConfigService.getEndpointFor('api/shopping-carts');
 
-  constructor(protected http: HttpClient, protected applicationConfigService: ApplicationConfigService) {}
+  constructor(
+    protected http: HttpClient,
+    protected applicationConfigService: ApplicationConfigService,
+    private shopUserService: ShopUserService
+  ) {}
 
   create(shoppingCart: IShoppingCart): Observable<EntityResponseType> {
     return this.http.post<IShoppingCart>(this.resourceUrl, shoppingCart, { observe: 'response' });
@@ -48,6 +54,15 @@ export class ShoppingCartService {
     return this.http.delete(`${this.resourceUrl}/${id}`, { observe: 'response' });
   }
 
+  //
+  // updateCart(): Observable<EntityArrayResponseType> {
+  //   return this.http.post<IShoppingCart[]>(`${this.resourceUrl}/update`, {observe: 'response'});
+  // }
+
+  updateCart(shoppingCart: IShoppingCart[]): Observable<EntityArrayResponseType> {
+    return this.http.post<IShoppingCart[]>(`${this.resourceUrl}/update`, shoppingCart, { observe: 'response' });
+  }
+
   addShoppingCartToCollectionIfMissing(
     shoppingCartCollection: IShoppingCart[],
     ...shoppingCartsToCheck: (IShoppingCart | null | undefined)[]
@@ -70,18 +85,40 @@ export class ShoppingCartService {
     return shoppingCartCollection;
   }
 
+  // addToCart(product?: IProduct): void {
+  //   let productInCart = false;
+  //   this.shoppingCarts?.forEach(shoppingCart => {
+  //     if (shoppingCart.product === product && shoppingCart.quantity) {
+  //       shoppingCart.quantity += 1;
+  //       productInCart = true;
+  //     }
+  //   });
+  //   if (!productInCart) {
+  //     const shoppingCart: IShoppingCart | null = this.createFromForm(product);
+  //     this.shoppingCarts?.push(shoppingCart);
+  //   }
+  // }
+
   addToCart(product?: IProduct): void {
     let productInCart = false;
-
-    this.shoppingCarts.forEach(shoppingCart => {
+    for (const shoppingCart of this.shoppingCarts) {
       if (shoppingCart.product === product && shoppingCart.quantity) {
         shoppingCart.quantity += 1;
+        this.partialUpdate(shoppingCart).subscribe();
         productInCart = true;
       }
-    });
+    }
+
+    // this.shoppingCarts?.forEach(shoppingCart => {
+    //   if (shoppingCart.product === product && shoppingCart.quantity) {
+    //     shoppingCart.quantity += 1;
+    //     productInCart = true;
+    //   }
+    // });
     if (!productInCart) {
-      const cart = this.createFromForm(product);
-      this.shoppingCarts.push(cart);
+      const shoppingCart: IShoppingCart | null = this.createFromForm(product);
+      this.create(shoppingCart).subscribe();
+      this.shoppingCarts?.push(shoppingCart);
     }
   }
 
@@ -89,7 +126,7 @@ export class ShoppingCartService {
     return {
       ...new ShoppingCart(),
       quantity: 1,
-      // shopUser: this.editForm.get(['shopUser'])!.value,
+      shopUser: this.shopUserService.shopUser,
       product,
     };
   }
@@ -97,7 +134,8 @@ export class ShoppingCartService {
   removeFromCart(product?: IProduct): void {
     if (this.shoppingCarts.length !== 0) {
       this.shoppingCarts.forEach(shoppingCart => {
-        if (shoppingCart.product === product && shoppingCart.quantity === 0) {
+        if (shoppingCart.id && shoppingCart.product === product && shoppingCart.quantity === 0) {
+          this.shopUserService.delete(shoppingCart.id).subscribe();
           const index = this.shoppingCarts.findIndex(cart => cart.product === product);
           this.shoppingCarts.splice(index, 1);
         }
@@ -113,17 +151,22 @@ export class ShoppingCartService {
     if (this.shoppingCarts.length === 0) {
       return quantity;
     }
-    this.shoppingCarts.forEach(cart => {
-      if (cart.product === product && cart.quantity) {
-        quantity = cart.quantity;
+    for (const shoppingCart of this.shoppingCarts) {
+      if (shoppingCart.product === product && shoppingCart.quantity) {
+        quantity = shoppingCart.quantity;
       }
-    });
+    }
+    // this.shoppingCarts?.forEach(cart => {
+    //   if (cart.product === product && cart.quantity) {
+    //     quantity = cart.quantity;
+    //   }
+    // });
     return quantity;
   }
 
   numberOfItemsInTheCart(): number {
     let itemCount = 0;
-    this.shoppingCarts.forEach(shoppingCart => {
+    this.shoppingCarts?.forEach(shoppingCart => {
       if (shoppingCart.quantity) {
         itemCount += shoppingCart.quantity;
       }
@@ -133,7 +176,7 @@ export class ShoppingCartService {
 
   totalPrice(): number {
     let totalPrice = 0;
-    this.shoppingCarts.forEach(shoppingCart => {
+    this.shoppingCarts?.forEach(shoppingCart => {
       if (shoppingCart.quantity && shoppingCart.product?.price) {
         totalPrice += shoppingCart.quantity * shoppingCart.product?.price;
       }
@@ -142,8 +185,8 @@ export class ShoppingCartService {
   }
 
   deleteFromCart(product?: IProduct): void {
-    const index = this.shoppingCarts.findIndex(cart => cart.product === product);
-    this.shoppingCarts.splice(index, 1);
+    const index = this.shoppingCarts?.findIndex(cart => cart.product === product);
+    // this.shoppingCarts.splice(index, 1);
   }
 
   clearCart(): void {

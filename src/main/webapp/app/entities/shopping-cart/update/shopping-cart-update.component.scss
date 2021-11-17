@@ -25,10 +25,21 @@
 }
 
 .p-dialog .p-dialog-header {
+  font-weight: normal;
   border-bottom: 0 none;
   background: #ffffff;
   color: #495057;
   padding: 1.5rem 1.5rem 0;
   border-top-right-radius: 3px;
   border-top-left-radius: 3px;
+}
+
+.ui-dialog .ui-dialog-title {
+  float: left;
+  margin: 0.3em 16px 0.1em 0;
+  background: blue;
+}
+
+.ui-dialog .ui-dialog-titlebar {
+  display: none !important;
 }
