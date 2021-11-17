@@ -85,21 +85,7 @@ export class ShoppingCartService {
     return shoppingCartCollection;
   }
 
-  // addToCart(product?: IProduct): void {
-  //   let productInCart = false;
-  //   this.shoppingCarts?.forEach(shoppingCart => {
-  //     if (shoppingCart.product === product && shoppingCart.quantity) {
-  //       shoppingCart.quantity += 1;
-  //       productInCart = true;
-  //     }
-  //   });
-  //   if (!productInCart) {
-  //     const shoppingCart: IShoppingCart | null = this.createFromForm(product);
-  //     this.shoppingCarts?.push(shoppingCart);
-  //   }
-  // }
-
-  addToCart(product?: IProduct): void {
+  addProductToCart(product?: IProduct): void {
     let productInCart = false;
     for (const shoppingCart of this.shoppingCarts) {
       if (shoppingCart.product === product && shoppingCart.quantity) {
@@ -108,13 +94,6 @@ export class ShoppingCartService {
         productInCart = true;
       }
     }
-
-    // this.shoppingCarts?.forEach(shoppingCart => {
-    //   if (shoppingCart.product === product && shoppingCart.quantity) {
-    //     shoppingCart.quantity += 1;
-    //     productInCart = true;
-    //   }
-    // });
     if (!productInCart) {
       const shoppingCart: IShoppingCart | null = this.createFromForm(product);
       this.create(shoppingCart).subscribe();
@@ -133,16 +112,17 @@ export class ShoppingCartService {
 
   removeFromCart(product?: IProduct): void {
     if (this.shoppingCarts.length !== 0) {
-      this.shoppingCarts.forEach(shoppingCart => {
-        if (shoppingCart.id && shoppingCart.product === product && shoppingCart.quantity === 0) {
-          this.shopUserService.delete(shoppingCart.id).subscribe();
-          const index = this.shoppingCarts.findIndex(cart => cart.product === product);
-          this.shoppingCarts.splice(index, 1);
-        }
+      let index = 0;
+      for (const shoppingCart of this.shoppingCarts) {
         if (shoppingCart.product === product && shoppingCart.quantity) {
           shoppingCart.quantity -= 1;
+          if (shoppingCart.quantity === 0 && shoppingCart.id) {
+            this.shoppingCarts.splice(index, 1);
+            this.delete(shoppingCart.id).subscribe();
+          }
         }
-      });
+        index++;
+      }
     }
   }
 
@@ -156,11 +136,6 @@ export class ShoppingCartService {
         quantity = shoppingCart.quantity;
       }
     }
-    // this.shoppingCarts?.forEach(cart => {
-    //   if (cart.product === product && cart.quantity) {
-    //     quantity = cart.quantity;
-    //   }
-    // });
     return quantity;
   }
 
@@ -184,12 +159,23 @@ export class ShoppingCartService {
     return totalPrice;
   }
 
-  deleteFromCart(product?: IProduct): void {
-    const index = this.shoppingCarts?.findIndex(cart => cart.product === product);
-    // this.shoppingCarts.splice(index, 1);
+  clearCart(): void {
+    for (const shoppingCart of this.shoppingCarts) {
+      if (shoppingCart.id) {
+        this.delete(shoppingCart.id).subscribe();
+        this.shoppingCarts = [];
+      }
+    }
   }
 
-  clearCart(): void {
-    this.shoppingCarts = [];
+  deleteProductFromCart(product?: IProduct): void {
+    let index = 0;
+    for (const shoppingCart of this.shoppingCarts) {
+      if (shoppingCart.product === product && shoppingCart.id) {
+        this.delete(shoppingCart.id).subscribe();
+        this.shoppingCarts.splice(index, 1);
+      }
+      index++;
+    }
   }
 }

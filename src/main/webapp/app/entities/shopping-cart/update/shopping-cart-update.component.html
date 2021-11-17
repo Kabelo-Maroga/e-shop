@@ -1,6 +1,5 @@
 <p-toast></p-toast>
-
-<div *ngIf="shoppingCarts">
+<div *ngIf="shoppingCarts.length !== 0; else cartEmpty">
   <div style="padding: 5px 0px 45px">
     <button
       style="float: right; margin-left: 5px"
@@ -20,6 +19,7 @@
       (click)="clearCart()"
     ></button>
   </div>
+  <div></div>
   <p-table [loading]="isLoading" [value]="shoppingCarts" responsiveLayout="scroll">
     <ng-template pTemplate="header">
       <tr>
@@ -63,15 +63,10 @@
         </td>
       </tr>
     </ng-template>
-
-    <!--    <ng-template class="p-datatable p-datatable-footer" pTemplate="summary">-->
-    <!--      <div class="p-d-flex p-ai-end p-jc-between">Total Price: {{ getTotalPrice() | currency: 'R' }}</div>-->
-    <!--    </ng-template>-->
   </p-table>
-  <!--  <hr>-->
   <span style="float: right; margin-top: 20px"
     >Total Price: <strong>{{ getTotalPrice() | currency: 'R' }}</strong></span
   >
   <p-confirmDialog [style]="{ width: '450px' }"></p-confirmDialog>
 </div>
-<div *ngIf="shoppingCarts">No items available!</div>
+<ng-template #cartEmpty>No items available.</ng-template>

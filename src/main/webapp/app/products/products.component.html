@@ -7,7 +7,9 @@
     <!--    <shop-filter [category] = "category"></shop-filter>-->
     <div class="sticky-top">
       <div class="list-group">
-        <a class="list-group-item list-group-item-action" [class.active]="!category" routerLink="/" (click)="reset()"> All Categories </a>
+        <a class="list-group-item list-group-item-action" [class.active]="!category" routerLink="/" (click)="seeAllCategories()">
+          All Categories
+        </a>
         <a
           *ngFor="let c of categories"
           routerLink="/"
@@ -23,10 +25,10 @@
 
   <div class="col">
     <div class="product-list">
-      <div *ngIf="cart" class="row">
+      <div *ngIf="this.shoppingCartService.shoppingCarts" class="row">
         <ng-container *ngFor="let product of filteredProducts; let i = index">
           <div class="col">
-            <product-card [product]="product" [shoppingCart]="getShoppingCart(product)"></product-card>
+            <product-card [product]="product" [shoppingCart]="getShoppingCartByProduct(product)"></product-card>
           </div>
           <div *ngIf="(i + 1) % 2 === 0" class="w-100"></div>
         </ng-container>

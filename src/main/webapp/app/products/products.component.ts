@@ -12,46 +12,34 @@ import { IShoppingCart } from '../entities/shopping-cart/shopping-cart.model';
 })
 export class ProductsComponent implements OnInit {
   products: IProduct[] = [];
-  cart: IShoppingCart[] = [];
   filteredProducts?: IProduct[];
 
   shoppingCart?: IShoppingCart;
 
   isLoading = true;
+  category?: string;
 
   categories: Category[] = [Category.BREAD, Category.FRUIT, Category.SEASONING, Category.DAIRY, Category.VEGETABLE];
 
-  category?: string;
-  // cart: any;
-
-  constructor(private productService: ProductService, private shoppingCartService: ShoppingCartService) {}
+  constructor(private productService: ProductService, public shoppingCartService: ShoppingCartService) {}
 
   ngOnInit(): void {
-    // console.log("ProductsComponent");
     this.fetchShoppingCart();
   }
 
   filterProducts(category: Category): void {
     this.category = category;
-    this.filteredProducts = this.products?.filter(product => product.category === this.category);
+    this.filteredProducts = this.products?.filter(product => product.category?.toLowerCase() === this.category?.toLowerCase());
   }
 
-  reset(): void {
+  seeAllCategories(): void {
     this.filteredProducts = this.products;
     this.category = undefined;
   }
 
-  getShoppingCart(product: IProduct): IShoppingCart | undefined {
-    this.shoppingCart = this.cart.find(shoppingCart => shoppingCart.product?.id === product.id);
-    // if(this.shoppingCart)
-    console.log('shoppingCart: ', this.shoppingCart);
+  getShoppingCartByProduct(product: IProduct): IShoppingCart | undefined {
+    this.shoppingCart = this.shoppingCartService.shoppingCarts.find(shoppingCart => shoppingCart.product?.id === product.id);
     return this.shoppingCart;
-    // return this.cart.find(shoppingCart => {
-    //   if(shoppingCart.product === product) {
-    //     console.log('Checking');
-    //     console.log('shoppingCart: ', shoppingCart);
-    //   }
-    // });
   }
 
   private fetchProducts(): void {
@@ -60,8 +48,7 @@ export class ProductsComponent implements OnInit {
 
   private fetchShoppingCart(): void {
     this.shoppingCartService.query().subscribe(res => {
-      this.shoppingCartService.shoppingCarts = this.cart = res.body ?? [];
-      console.log('this.shoppingCartService.shoppingCarts: ', this.shoppingCartService.shoppingCarts);
+      this.shoppingCartService.shoppingCarts = res.body ?? [];
       this.fetchProducts();
       this.isLoading = false;
     });

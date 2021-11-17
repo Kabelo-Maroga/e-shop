@@ -12,10 +12,7 @@ export class ProductCardComponent {
   @Input() product?: IProduct;
   @Input() shoppingCart?: IShoppingCart | undefined;
 
-  constructor(public shoppingCartService: ShoppingCartService) {
-    console.log('product: ', this.product);
-    console.log('shopping cart: ', this.shoppingCart);
-  }
+  constructor(public shoppingCartService: ShoppingCartService) {}
 
   //
   // ngOnInit(): void {
@@ -27,8 +24,14 @@ export class ProductCardComponent {
 
   addToCart(): void {
     if (!this.isAddedToCart()) {
-      this.shoppingCartService.addToCart(this.product);
+      this.shoppingCartService.addProductToCart(this.product);
     }
+  }
+
+  toolTipLabel(): string {
+    const ADD_TO_CART = 'add to cart';
+    const IN_CART = 'in cart';
+    return this.isAddedToCart() ? IN_CART : ADD_TO_CART;
   }
 
   isAddedToCart(): boolean {

@@ -89,7 +89,7 @@ export class ShoppingCartUpdateComponent implements OnInit {
   }
 
   addToCart(product: IProduct): void {
-    this.shoppingCartService.addToCart(product);
+    this.shoppingCartService.addProductToCart(product);
   }
 
   removeFromCart(product: IProduct): void {
@@ -129,7 +129,7 @@ export class ShoppingCartUpdateComponent implements OnInit {
       header: 'Confirm',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
-        this.shoppingCartService.deleteFromCart(product);
+        this.shoppingCartService.deleteProductFromCart(product);
         this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Product Deleted', life: 3000 });
         if (this.shoppingCartService.shoppingCarts?.length === 0) {
           this.router.navigate(['/']);
