@@ -1,10 +1,21 @@
 <div class="card" style="border-radius: 7px">
-  <img style="border-radius: 7px; height: 250px" [src]="product?.imageUrl" class="card-img-top" alt="Card image cap" />
+  <img style="border-radius: 7px" [src]="product?.imageUrl" class="card-img-top" alt="Card image cap" />
   <div class="card-body">
     <h5 class="card-title">{{ product?.title }}</h5>
     <span class="card-text">{{ product?.price | currency: 'R':true }}</span>
-    <span style="float: right"
-      ><p-button (click)="addToCart()" [disabled]="isAddedToCart()" icon="pi pi-shopping-cart" [pTooltip]="toolTipLabel()"></p-button
-    ></span>
+    <span style="float: right">
+      <button
+        pButton
+        type="button"
+        icon="pi pi-shopping-cart"
+        class="p-button-raised p-button-rounded"
+        (click)="addToCart()"
+        [disabled]="isAddedToCart()"
+        [pTooltip]="toolTipLabel()"
+      ></button>
+      <!--      <button pButton type="button" icon="pi pi-shopping-cart" class="p-button-text p-button-secondary"></button>-->
+      <!--      <button pButton type="button" class="p-button-secondary" (click)="addToCart()" [disabled]="isAddedToCart()" icon="pi pi-shopping-cart" [pTooltip]="toolTipLabel()"></button>-->
+      <!--      <p-button (click)="addToCart()" class="p-button-secondary" [disabled]="isAddedToCart()" icon="pi pi-shopping-cart" [pTooltip]="toolTipLabel()"></p-button>-->
+    </span>
   </div>
 </div>

@@ -20,3 +20,10 @@
 a {
   font-weight: normal;
 }
+
+.list-group-item.active {
+  z-index: 2;
+  color: #fff;
+  background-color: #689f38;
+  border-color: #689f38;
+}

@@ -19,7 +19,7 @@ export class ProductsComponent implements OnInit {
   isLoading = true;
   category?: string;
 
-  categories: Category[] = [Category.BREAD, Category.FRUIT, Category.SEASONING, Category.DAIRY, Category.VEGETABLE];
+  categories: Category[] = [Category.BREAD, Category.FRUITS, Category.SEASONING, Category.DAIRY, Category.VEGETABLE];
 
   constructor(private productService: ProductService, public shoppingCartService: ShoppingCartService) {}
 

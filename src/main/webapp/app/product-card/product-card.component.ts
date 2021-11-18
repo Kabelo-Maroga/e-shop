@@ -12,6 +12,10 @@ export class ProductCardComponent {
   @Input() product?: IProduct;
   @Input() shoppingCart?: IShoppingCart | undefined;
 
+  options = {
+    text: 'testing',
+  };
+
   constructor(public shoppingCartService: ShoppingCartService) {}
 
   //
@@ -44,9 +48,5 @@ export class ProductCardComponent {
 
   getQuantity(): number {
     return this.shoppingCartService.getQuantity(this.product);
-
-    // const quantity = this.shoppingCart?.find(cart => cart.product === this.product)?.quantity;
-    // console.log('quantity: ', quantity);
-    // return (quantity) ? quantity : 0;
   }
 }

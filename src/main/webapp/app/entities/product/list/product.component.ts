@@ -5,14 +5,13 @@ import { ProductService } from '../service/product.service';
 import { Category } from '../../enumerations/category.model';
 import { ShoppingCartService } from '../../shopping-cart/service/shopping-cart.service';
 import { ConfirmationService, MessageService } from 'primeng/api';
-import { ShoppingCartUpdateComponent } from '../../shopping-cart/update/shopping-cart-update.component';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { Subject } from 'rxjs';
-import { AccountService } from '../../../core/auth/account.service';
-import { LoginService } from '../../../login/login.service';
-import { Route, Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { ProductUpdateComponent } from '../update/product-update.component';
-import { GlobalService } from '../../../shared/service/global.service';
+import { StatusCode } from '../../enumerations/status-code';
+import { finalize } from 'rxjs/operators';
+import { HttpResponse } from '@angular/common/http';
+import { IShoppingCart } from '../../shopping-cart/shopping-cart.model';
 
 @Component({
   selector: 'jhi-product',
@@ -22,9 +21,9 @@ import { GlobalService } from '../../../shared/service/global.service';
 export class ProductComponent implements OnInit {
   ref?: DynamicDialogRef;
   products: IProduct[] = [];
-  filteredProducts?: IProduct[];
+  filteredProducts: IProduct[] = [];
 
-  categories: Category[] = [Category.BREAD, Category.FRUIT, Category.SEASONING, Category.DAIRY, Category.VEGETABLE];
+  categories: Category[] = [Category.BREAD, Category.FRUITS, Category.SEASONING, Category.DAIRY, Category.VEGETABLE];
 
   category?: string;
   cart: any;
@@ -34,18 +33,11 @@ export class ProductComponent implements OnInit {
     private shoppingCartService: ShoppingCartService,
     protected confirmationService: ConfirmationService,
     protected messageService: MessageService,
-    private dialogService: DialogService,
-    private globalService: GlobalService,
-    private router: Router
+    private dialogService: DialogService
   ) {}
 
   ngOnInit(): void {
     this.fetchProducts();
-  }
-
-  filterProducts(category: Category): void {
-    this.category = category;
-    this.filteredProducts = this.products?.filter(product => product.category === this.category);
   }
 
   filter(query: string): void {
@@ -66,8 +58,41 @@ export class ProductComponent implements OnInit {
         if (selectedProduct.id) {
           const index = this.products.findIndex(product => product === selectedProduct);
           this.products?.splice(index, 1);
-          this.productService.delete(selectedProduct.id).subscribe();
-          this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Product Deleted', life: 3000 });
+
+          const index2 = this.filteredProducts.findIndex(product => product === selectedProduct);
+          this.filteredProducts?.splice(index2, 1);
+
+          this.productService.delete(selectedProduct.id).subscribe(
+            res => {
+              console.log(res.body);
+            },
+            error => {
+              if (error.status === StatusCode.OK) {
+                this.messageService.add({
+                  severity: 'success',
+                  summary: 'Successful',
+                  detail: 'Product Deleted',
+                  life: 3000,
+                });
+              } else if (error.status === StatusCode.INTERNAL_SERVER_ERROR) {
+                this.messageService.add({
+                  severity: 'error',
+                  summary: 'Deletion Failed',
+                  detail: 'Internal Server Error',
+                  life: 3000,
+                });
+              }
+            }
+
+            //   if (res.status === StatusCode.OK) {
+            //     this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Product Deleted', life: 3000 });
+            //   }
+            //   else if(res.status === StatusCode.INTERNAL_SERVER_ERROR)  {
+            //     this.messageService.add({ severity: 'Error', summary: 'Deletion Failed', detail: 'Internal Server Error', life: 3000 });
+            //   }
+            // }
+          );
+          // this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Product Deleted', life: 3000 });
         }
       },
     });
@@ -99,8 +124,8 @@ export class ProductComponent implements OnInit {
 
   private fetchProducts(): void {
     this.productService.query().subscribe(res => {
-      this.products = this.filteredProducts = res.body ?? [];
-      this.products.reverse();
+      this.productService.products = this.filteredProducts = res.body ?? [];
+      this.productService.products.reverse();
     });
   }
 }

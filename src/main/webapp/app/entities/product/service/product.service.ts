@@ -13,6 +13,7 @@ export type EntityArrayResponseType = HttpResponse<IProduct[]>;
 
 @Injectable({ providedIn: 'root' })
 export class ProductService {
+  public products: IProduct[] = [];
   public selectedProduct?: IProduct;
   public modalRef?: DynamicDialogRef;
   protected resourceUrl = this.applicationConfigService.getEndpointFor('api/products');

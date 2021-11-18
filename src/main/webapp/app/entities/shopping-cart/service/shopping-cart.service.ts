@@ -168,7 +168,7 @@ export class ShoppingCartService {
     }
   }
 
-  deleteProductFromCart(product?: IProduct): void {
+  deleteProductFromCart(product?: IProduct, deleteProduct?: boolean): void {
     let index = 0;
     for (const shoppingCart of this.shoppingCarts) {
       if (shoppingCart.product === product && shoppingCart.id) {
