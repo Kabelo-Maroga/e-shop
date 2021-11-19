@@ -52,5 +52,5 @@ jobs:
       - task: Npm@1
         inputs:
           command: 'custom'
-          customCommand: 'mvn spring-boot:run -Dspring.profiles.active=prod'
+          customCommand: 'npm run java:jar:prod'
         displayName: 'TESTS: packaging'
