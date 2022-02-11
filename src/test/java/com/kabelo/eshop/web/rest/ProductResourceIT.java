@@ -204,7 +204,7 @@ class ProductResourceIT {
         Product testProduct = productList.get(productList.size() - 1);
         assertThat(testProduct.getCategory()).isEqualTo(UPDATED_CATEGORY);
         assertThat(testProduct.getTitle()).isEqualTo(UPDATED_TITLE);
-        assertThat(testProduct.getPrice()).isEqualTo(UPDATED_PRICE);
+        assertThat(testProduct.getPrice()).isEqualByComparingTo(UPDATED_PRICE);
         assertThat(testProduct.getImageUrl()).isEqualTo(UPDATED_IMAGE_URL);
     }
 

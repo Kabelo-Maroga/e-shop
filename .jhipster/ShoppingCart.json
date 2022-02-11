@@ -1,34 +1,34 @@
 {
-  "name": "ShoppingCart",
+  "applications": ["eshop"],
+  "changelogDate": "20211111151050",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "shopping_cart",
   "fields": [
     {
       "fieldName": "quantity",
       "fieldType": "Integer"
     }
   ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "ShoppingCart",
+  "pagination": "pagination",
+  "readOnly": false,
   "relationships": [
     {
-      "relationshipType": "one-to-one",
       "otherEntityName": "shopUser",
       "otherEntityRelationshipName": "shoppingCart",
+      "ownerSide": true,
       "relationshipName": "shopUser",
-      "ownerSide": true
+      "relationshipType": "one-to-one"
     },
     {
-      "relationshipType": "many-to-one",
       "otherEntityName": "product",
       "otherEntityRelationshipName": "shoppingCart",
-      "relationshipName": "product"
+      "relationshipName": "product",
+      "relationshipType": "many-to-one"
     }
   ],
-  "entityTableName": "shopping_cart",
-  "dto": "mapstruct",
-  "pagination": "pagination",
-  "service": "serviceImpl",
-  "jpaMetamodelFiltering": false,
-  "fluentMethods": true,
-  "readOnly": false,
-  "embedded": false,
-  "applications": ["eshop"],
-  "changelogDate": "20211111151050"
+  "service": "serviceImpl"
 }

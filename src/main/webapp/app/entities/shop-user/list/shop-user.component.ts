@@ -19,15 +19,15 @@ export class ShopUserComponent implements OnInit {
   loadAll(): void {
     this.isLoading = true;
 
-    this.shopUserService.query().subscribe(
-      (res: HttpResponse<IShopUser[]>) => {
+    this.shopUserService.query().subscribe({
+      next: (res: HttpResponse<IShopUser[]>) => {
         this.isLoading = false;
         this.shopUsers = res.body ?? [];
       },
-      () => {
+      error: () => {
         this.isLoading = false;
-      }
-    );
+      },
+    });
   }
 
   ngOnInit(): void {

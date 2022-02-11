@@ -1,5 +1,9 @@
 {
-  "name": "ShopUser",
+  "applications": ["eshop"],
+  "changelogDate": "20211111150850",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "shop_user",
   "fields": [
     {
       "fieldName": "name",
@@ -19,23 +23,19 @@
       "fieldValues": "USER,ADMIN"
     }
   ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "ShopUser",
+  "pagination": "no",
+  "readOnly": false,
   "relationships": [
     {
-      "relationshipType": "one-to-one",
       "otherEntityName": "shoppingCart",
       "otherEntityRelationshipName": "shopUser",
+      "ownerSide": false,
       "relationshipName": "shoppingCart",
-      "ownerSide": false
+      "relationshipType": "one-to-one"
     }
   ],
-  "entityTableName": "shop_user",
-  "dto": "mapstruct",
-  "pagination": "no",
-  "service": "serviceImpl",
-  "jpaMetamodelFiltering": false,
-  "fluentMethods": true,
-  "readOnly": false,
-  "embedded": false,
-  "applications": ["eshop"],
-  "changelogDate": "20211111150850"
+  "service": "serviceImpl"
 }

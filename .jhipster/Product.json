@@ -1,5 +1,9 @@
 {
-  "name": "Product",
+  "applications": ["eshop"],
+  "changelogDate": "20211111150950",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "product",
   "fields": [
     {
       "fieldName": "category",
@@ -19,22 +23,18 @@
       "fieldType": "String"
     }
   ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Product",
+  "pagination": "pagination",
+  "readOnly": false,
   "relationships": [
     {
-      "relationshipType": "one-to-many",
       "otherEntityName": "shoppingCart",
       "otherEntityRelationshipName": "product",
-      "relationshipName": "shoppingCart"
+      "relationshipName": "shoppingCart",
+      "relationshipType": "one-to-many"
     }
   ],
-  "entityTableName": "product",
-  "dto": "mapstruct",
-  "pagination": "pagination",
-  "service": "serviceImpl",
-  "jpaMetamodelFiltering": false,
-  "fluentMethods": true,
-  "readOnly": false,
-  "embedded": false,
-  "applications": ["eshop"],
-  "changelogDate": "20211111150950"
+  "service": "serviceImpl"
 }

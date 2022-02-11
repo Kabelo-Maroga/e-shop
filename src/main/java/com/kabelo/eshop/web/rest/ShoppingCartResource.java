@@ -143,7 +143,7 @@ public class ShoppingCartResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of shoppingCarts in body.
      */
     @GetMapping("/shopping-carts")
-    public ResponseEntity<List<ShoppingCartDTO>> getAllShoppingCarts(Pageable pageable) {
+    public ResponseEntity<List<ShoppingCartDTO>> getAllShoppingCarts(@org.springdoc.api.annotations.ParameterObject Pageable pageable) {
         log.debug("REST request to get a page of ShoppingCarts");
         Page<ShoppingCartDTO> page = shoppingCartService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
