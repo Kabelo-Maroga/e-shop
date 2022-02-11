@@ -1,0 +1,41 @@
+{
+  "name": "ShopUser",
+  "fields": [
+    {
+      "fieldName": "name",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "email",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "password",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "role",
+      "fieldType": "Role",
+      "fieldValues": "USER,ADMIN"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-one",
+      "otherEntityName": "shoppingCart",
+      "otherEntityRelationshipName": "shopUser",
+      "relationshipName": "shoppingCart",
+      "ownerSide": false
+    }
+  ],
+  "entityTableName": "shop_user",
+  "dto": "mapstruct",
+  "pagination": "no",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": ["eshop"],
+  "changelogDate": "20211111150850"
+}
