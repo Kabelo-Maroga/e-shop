@@ -1,6 +1,6 @@
-import { Route } from '@angular/router';
+import {Route} from '@angular/router';
 
-import { FilterComponent } from './filter.component';
+import {FilterComponent} from './filter.component';
 
 export const FILTER_ROUTE: Route = {
   path: 'filter',

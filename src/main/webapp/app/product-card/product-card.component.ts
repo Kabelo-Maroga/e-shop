@@ -1,7 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { ShoppingCartService } from '../entities/shopping-cart/service/shopping-cart.service';
-import { IProduct } from '../entities/product/product.model';
-import { IShoppingCart } from '../entities/shopping-cart/shopping-cart.model';
+import {Component, Input} from '@angular/core';
+import {ShoppingCartService} from '../entities/shopping-cart/service/shopping-cart.service';
+import {IProduct} from '../entities/product/product.model';
+import {IShoppingCart} from '../entities/shopping-cart/shopping-cart.model';
+import {ToolTipLabel} from "../entities/enumerations/tool-tip-label.model";
 
 @Component({
   selector: 'product-card',
@@ -12,19 +13,11 @@ export class ProductCardComponent {
   @Input() product?: IProduct;
   @Input() shoppingCart?: IShoppingCart | undefined;
 
-  options = {
-    text: 'testing',
-  };
+  // options = {
+  //   text: 'testing',
+  // };
 
   constructor(public shoppingCartService: ShoppingCartService) {}
-
-  //
-  // ngOnInit(): void {
-  //   this.shoppingCartService.query().subscribe(res => {
-  //     this.shoppingCart = res.body;
-  //     console.log('this.shoppingCart: ', this.shoppingCart);
-  //   });
-  // }
 
   addToCart(): void {
     if (!this.isAddedToCart()) {
@@ -33,9 +26,7 @@ export class ProductCardComponent {
   }
 
   toolTipLabel(): string {
-    const ADD_TO_CART = 'add to cart';
-    const IN_CART = 'in cart';
-    return this.isAddedToCart() ? IN_CART : ADD_TO_CART;
+    return this.isAddedToCart() ? ToolTipLabel.IN_CART : ToolTipLabel.ADD_TO_CART;
   }
 
   isAddedToCart(): boolean {
