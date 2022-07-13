@@ -15,5 +15,5 @@ still in the pipeline include checkout with a payment gateway and order confirma
 1. JDK 11
 2. Angular 10 CLI
 3. Node 14.17.6 or 
-4. PostresSQL (recommends latest version)
+4. PostresSQL (recommend latest version)
 5. Maven build tool
