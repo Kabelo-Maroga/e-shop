@@ -114,7 +114,5 @@ steps:
 
     enabled: false
 
-  - task: PublishBuildArtifacts@1
-
 
 
