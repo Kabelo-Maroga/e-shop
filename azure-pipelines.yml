@@ -40,11 +40,11 @@ steps:
 
     inputs:
 
-      SourceFolder: '$(system.defaultworkingdirectory)'
+      SourceFolder: '/home/vsts/work/1/s'
 
       Contents: '**/*.war'
 
-      TargetFolder: '$(build.artifactstagingdirectory)'
+      TargetFolder: '/home/vsts/work/1/s'
 
     condition: succeededOrFailed()
 
@@ -56,7 +56,7 @@ steps:
 
     inputs:
 
-      PathtoPublish: '$(build.artifactstagingdirectory)'
+      PathtoPublish: '/home/vsts/work/1/s'
 
     condition: succeededOrFailed()
 
@@ -88,7 +88,7 @@ steps:
 
       WebAppName: 'fruit-veg'
 
-      packageForLinux: '$(build.artifactstagingdirectory)/**/*.war'
+      packageForLinux: '/home/vsts/work/1/s/**/*.war'
 
       RuntimeStack: 'JAVA|11-java11'
 
