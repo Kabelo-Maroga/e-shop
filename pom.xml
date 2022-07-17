@@ -7,7 +7,7 @@
 
     <groupId>com.kabelo.eshop</groupId>
     <artifactId>eshop</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>17-July</version>
     <packaging>jar</packaging>
     <name>Eshop</name>
     <description>Description for eshop</description>

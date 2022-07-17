@@ -1,118 +1,64 @@
 pool:
-
   name: Azure Pipelines
-
   demands: maven
-
 
 
 steps:
 
   - task: Maven@3
-
     displayName: 'Maven pom.xml'
-
     inputs:
-
       goals: 'clean install'
 
 
-
   - task: Ant@1
-
     displayName: 'Ant  build.xml'
-
     enabled: false
-
 
 
   - task: Gradle@3
-
     displayName: 'gradlew build'
-
     enabled: false
-
 
 
   - task: CopyFiles@2
-
-    displayName: 'Copy files to staging folder'
-
     inputs:
-
-      SourceFolder: '/home/vsts/work/1/s'
-
-      Contents: '**/*.war'
-
-      TargetFolder: '/home/vsts/work/1/s'
-
-    condition: succeededOrFailed()
-
+      SourceFolder: '$(system.defaultworkingdirectory)'
+      Contents: '**/*.jar'
+      TargetFolder: '$(build.artifactstagingdirectory)'
+      CleanTargetFolder: true
 
 
   - task: PublishBuildArtifacts@1
-
-    displayName: 'Publish Artifact: drop'
-
     inputs:
-
-      PathtoPublish: '/home/vsts/work/1/s'
-
-    condition: succeededOrFailed()
-
+      PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+      ArtifactName: 'drop'
+      publishLocation: 'Container'
 
 
   - task: AzureAppServiceManage@0
-
     displayName: 'Stop Azure Web App'
-
     inputs:
-
       azureSubscription: 'Pay-As-You-Go (972db1b3-922b-42b1-8d49-37dbbff00b51)'
-
       Action: 'Stop Azure App Service'
-
       WebAppName: 'fruit-veg'
-
-
 
   - task: AzureRmWebAppDeployment@4
-
-    displayName: 'Deploy Azure Web App'
-
     inputs:
-
+      ConnectionType: 'AzureRM'
       azureSubscription: 'Pay-As-You-Go (972db1b3-922b-42b1-8d49-37dbbff00b51)'
-
-      appType: webAppLinux
-
+      appType: 'webAppLinux'
       WebAppName: 'fruit-veg'
-
-      packageForLinux: '/home/vsts/work/1/s/**/*.war'
-
+      packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.jar'
       RuntimeStack: 'JAVA|11-java11'
 
 
-
   - task: AzureAppServiceManage@0
-
     displayName: 'Start Azure Web App'
-
     inputs:
-
       azureSubscription: 'Pay-As-You-Go (972db1b3-922b-42b1-8d49-37dbbff00b51)'
-
       Action: 'Start Azure App Service'
-
       WebAppName: 'fruit-veg'
-
-
-
-  - task: AzureAppServiceManage@0
-
-    displayName: 'Swap Azure Web App slots'
-
-    enabled: false
 
 
 
