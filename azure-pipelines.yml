@@ -24,7 +24,7 @@ steps:
   - task: CopyFiles@2
     inputs:
       SourceFolder: '$(system.defaultworkingdirectory)'
-      Contents: '**/*.jar'
+      Contents: '**/eshop-17-July.jar'
       TargetFolder: '$(build.artifactstagingdirectory)'
       CleanTargetFolder: true
 
