@@ -24,7 +24,7 @@ steps:
   - task: CopyFiles@2
     inputs:
       SourceFolder: '$(system.defaultworkingdirectory)'
-      Contents: '**/eshop-17-July.jar'
+      Contents: '**/*.jar'
       TargetFolder: '$(build.artifactstagingdirectory)'
       CleanTargetFolder: true
 
@@ -49,7 +49,7 @@ steps:
       azureSubscription: 'Pay-As-You-Go (972db1b3-922b-42b1-8d49-37dbbff00b51)'
       appType: 'webAppLinux'
       WebAppName: 'fruit-veg'
-      packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.jar'
+      packageForLinux: '$(System.DefaultWorkingDirectory)/**/**/*.jar'
       RuntimeStack: 'JAVA|11-java11'
 
 
