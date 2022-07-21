@@ -49,9 +49,8 @@ steps:
       azureSubscription: 'Pay-As-You-Go (972db1b3-922b-42b1-8d49-37dbbff00b51)'
       appType: 'webAppLinux'
       WebAppName: 'fruit-veg'
-      packageForLinux: '$(System.DefaultWorkingDirectory)/**/**/*.jar'
+      packageForLinux: '$(System.DefaultWorkingDirectory)/drop/target/*.jar'
       RuntimeStack: 'JAVA|11-java11'
-
 
   - task: AzureAppServiceManage@0
     displayName: 'Start Azure Web App'
