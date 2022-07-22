@@ -8,7 +8,7 @@ steps:
   - task: Maven@3
     displayName: 'Maven pom.xml'
     inputs:
-      goals: 'clean install'
+      goals: 'clean package'
 
 
   - task: Ant@1
