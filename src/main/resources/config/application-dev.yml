@@ -39,7 +39,7 @@ spring:
       indent-output: true
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
-    url: jdbc:postgresql://veg-shop.postgres.database.azure.com:5432/veg-shop
+    url: jdbc:postgresql://eshop-db-server.postgres.database.azure.com:5432/eshop
     username: fruitveg
     password: eshop-2!
     hikari:
