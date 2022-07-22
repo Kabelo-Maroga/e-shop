@@ -19,6 +19,10 @@
 #     username: eShop
 #     password: eshop-2!
 
+# url: jdbc:postgresql://localhost:5432/eshop_db
+#     username: eShop
+#     password: fruitveg2!
+
 # jdbc:postgresql://veg-shop.postgres.database.azure.com:5432/{your_database}?user=fruitveg&password={your_password}&sslmode=require
 logging:
   level:
@@ -39,9 +43,9 @@ spring:
       indent-output: true
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
-    url: jdbc:postgresql://eshop-db-server.postgres.database.azure.com:5432/eshop
-    username: fruitveg
-    password: eshop-2!
+    url: jdbc:postgresql://eshop-db-server.postgres.database.azure.com:5432/eshop_db
+    username: eShop
+    password: fruitveg2!
     hikari:
       poolName: Hikari
       auto-commit: false
