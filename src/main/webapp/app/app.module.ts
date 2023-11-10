@@ -27,7 +27,6 @@ import { PageRibbonComponent } from './layouts/profiles/page-ribbon.component';
 import { ActiveMenuDirective } from './layouts/navbar/active-menu.directive';
 import { ErrorComponent } from './layouts/error/error.component';
 import { ProductsModule } from './products/products.module';
-import { FilterModule } from './products/filter/filter.module';
 import { ProductCardModule } from './product-card/product-card.module';
 import { BsNavbarModule } from './bs-navbar/bs-navbar.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -41,7 +40,6 @@ import { ButtonModule } from 'primeng/button';
     BrowserAnimationsModule,
 
     ProductsModule,
-    FilterModule,
     ProductCardModule,
 
     // jhipster-needle-angular-add-module JHipster will add new module here
