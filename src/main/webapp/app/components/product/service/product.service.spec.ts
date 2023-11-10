@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
-import { Category } from 'app/entities/enumerations/category.model';
+import { Category } from 'app/components/enumerations/category.model';
 import { IProduct, Product } from '../product.model';
 
 import { ProductService } from './product.service';

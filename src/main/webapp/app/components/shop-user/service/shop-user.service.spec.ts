@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
-import { Role } from 'app/entities/enumerations/role.model';
+import { Role } from 'app/components/enumerations/role.model';
 import { IShopUser, ShopUser } from '../shop-user.model';
 
 import { ShopUserService } from './shop-user.service';

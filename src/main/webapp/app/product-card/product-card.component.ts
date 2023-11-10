@@ -1,8 +1,8 @@
-import {Component, Input} from '@angular/core';
-import {ShoppingCartService} from '../entities/shopping-cart/service/shopping-cart.service';
-import {IProduct} from '../entities/product/product.model';
-import {IShoppingCart} from '../entities/shopping-cart/shopping-cart.model';
-import {ToolTipLabel} from "../entities/enumerations/tool-tip-label.model";
+import { Component, Input } from '@angular/core';
+import { ShoppingCartService } from '../components/shopping-cart/service/shopping-cart.service';
+import { IProduct } from '../components/product/product.model';
+import { IShoppingCart } from '../components/shopping-cart/shopping-cart.model';
+import { ToolTipLabel } from '../components/enumerations/tool-tip-label.model';
 
 @Component({
   selector: 'product-card',

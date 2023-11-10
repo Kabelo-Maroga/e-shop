@@ -7,7 +7,7 @@ import { finalize } from 'rxjs/operators';
 
 import { IShopUser, ShopUser } from '../shop-user.model';
 import { ShopUserService } from '../service/shop-user.service';
-import { Role } from 'app/entities/enumerations/role.model';
+import { Role } from 'app/components/enumerations/role.model';
 
 @Component({
   selector: 'jhi-shop-user-update',

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { IProduct } from '../../entities/product/product.model';
+import { IProduct } from '../../components/product/product.model';
 
 @Injectable({ providedIn: 'root' })
 export class GlobalService {

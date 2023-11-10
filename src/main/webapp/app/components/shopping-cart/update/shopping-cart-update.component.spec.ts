@@ -9,10 +9,10 @@ import { of, Subject } from 'rxjs';
 
 import { ShoppingCartService } from '../service/shopping-cart.service';
 import { IShoppingCart, ShoppingCart } from '../shopping-cart.model';
-import { IShopUser } from 'app/entities/shop-user/shop-user.model';
-import { ShopUserService } from 'app/entities/shop-user/service/shop-user.service';
-import { IProduct } from 'app/entities/product/product.model';
-import { ProductService } from 'app/entities/product/service/product.service';
+import { IShopUser } from 'app/components/shop-user/shop-user.model';
+import { ShopUserService } from 'app/components/shop-user/service/shop-user.service';
+import { IProduct } from 'app/components/product/product.model';
+import { ProductService } from 'app/components/product/service/product.service';
 
 import { ShoppingCartUpdateComponent } from './shopping-cart-update.component';
 

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ShoppingCartService } from '../entities/shopping-cart/service/shopping-cart.service';
+import { ShoppingCartService } from '../components/shopping-cart/service/shopping-cart.service';
 import { Router } from '@angular/router';
 import { LoginService } from '../login/login.service';
 import { Account } from '../core/auth/account.model';
@@ -9,8 +9,8 @@ import { takeUntil } from 'rxjs/operators';
 import { Authority } from '../config/authority.constants';
 import { MessageService } from 'primeng/api';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { ShoppingCartUpdateComponent } from '../entities/shopping-cart/update/shopping-cart-update.component';
-import { ProductUpdateComponent } from '../entities/product/update/product-update.component';
+import { ShoppingCartUpdateComponent } from '../components/shopping-cart/update/shopping-cart-update.component';
+import { ProductUpdateComponent } from '../components/product/update/product-update.component';
 
 @Component({
   selector: 'nav-bar',

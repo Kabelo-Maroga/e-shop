@@ -1,5 +1,5 @@
-import { IShopUser } from 'app/entities/shop-user/shop-user.model';
-import { IProduct } from 'app/entities/product/product.model';
+import { IShopUser } from 'app/components/shop-user/shop-user.model';
+import { IProduct } from 'app/components/product/product.model';
 
 export interface IShoppingCart {
   id?: number;

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProductService } from '../service/product.service';
-import { Category } from 'app/entities/enumerations/category.model';
+import { Category } from 'app/components/enumerations/category.model';
 import { IProduct, Product } from '../product.model';
 import { finalize } from 'rxjs/operators';
 import { HttpResponse } from '@angular/common/http';

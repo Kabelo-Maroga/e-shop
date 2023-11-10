@@ -4,11 +4,11 @@ import { Router } from '@angular/router';
 
 import { LoginService } from 'app/login/login.service';
 import { AccountService } from 'app/core/auth/account.service';
-import { IShopUser, ShopUser } from '../entities/shop-user/shop-user.model';
+import { IShopUser, ShopUser } from '../components/shop-user/shop-user.model';
 import { Account } from '../core/auth/account.model';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { ShopUserService } from '../entities/shop-user/service/shop-user.service';
+import { ShopUserService } from '../components/shop-user/service/shop-user.service';
 
 @Component({
   selector: 'jhi-login',

@@ -1,5 +1,5 @@
-import { IShoppingCart } from 'app/entities/shopping-cart/shopping-cart.model';
-import { Category } from 'app/entities/enumerations/category.model';
+import { IShoppingCart } from 'app/components/shopping-cart/shopping-cart.model';
+import { Category } from 'app/components/enumerations/category.model';
 
 export interface IProduct {
   id?: number;

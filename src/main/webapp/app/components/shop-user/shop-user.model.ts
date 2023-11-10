@@ -1,5 +1,5 @@
-import { IShoppingCart } from 'app/entities/shopping-cart/shopping-cart.model';
-import { Role } from 'app/entities/enumerations/role.model';
+import { IShoppingCart } from 'app/components/shopping-cart/shopping-cart.model';
+import { Role } from 'app/components/enumerations/role.model';
 
 export interface IShopUser {
   id?: number;

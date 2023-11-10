@@ -9,10 +9,10 @@ import { Account } from 'app/core/auth/account.model';
 import { AccountService } from 'app/core/auth/account.service';
 import { LoginService } from 'app/login/login.service';
 import { ProfileService } from 'app/layouts/profiles/profile.service';
-import { ShoppingCartUpdateComponent } from '../../entities/shopping-cart/update/shopping-cart-update.component';
+import { ShoppingCartUpdateComponent } from '../../components/shopping-cart/update/shopping-cart-update.component';
 import { MessageService } from 'primeng/api';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { ShoppingCartService } from '../../entities/shopping-cart/service/shopping-cart.service';
+import { ShoppingCartService } from '../../components/shopping-cart/service/shopping-cart.service';
 
 @Component({
   selector: 'jhi-navbar',

@@ -1,9 +1,9 @@
-import {Component, OnInit} from '@angular/core';
-import {ProductService} from '../entities/product/service/product.service';
-import {IProduct} from '../entities/product/product.model';
-import {ShoppingCartService} from '../entities/shopping-cart/service/shopping-cart.service';
-import {Category} from '../entities/enumerations/category.model';
-import {IShoppingCart} from '../entities/shopping-cart/shopping-cart.model';
+import { Component, OnInit } from '@angular/core';
+import { ProductService } from '../components/product/service/product.service';
+import { IProduct } from '../components/product/product.model';
+import { ShoppingCartService } from '../components/shopping-cart/service/shopping-cart.service';
+import { Category } from '../components/enumerations/category.model';
+import { IShoppingCart } from '../components/shopping-cart/shopping-cart.model';
 
 @Component({
   selector: 'jhi-home',
