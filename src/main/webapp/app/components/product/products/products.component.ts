@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { IProduct } from '../components/product/product.model';
-import { ShoppingCartService } from '../components/shopping-cart/service/shopping-cart.service';
-import { Category } from '../components/enumerations/category.model';
-import { IShoppingCart } from '../components/shopping-cart/shopping-cart.model';
+import { IProduct } from '../product.model';
+import { ShoppingCartService } from '../../shopping-cart/service/shopping-cart.service';
+import { Category } from '../../enumerations/category.model';
+import { IShoppingCart } from '../../shopping-cart/shopping-cart.model';
 import { ProductsFacade } from './products.facade';
 import { map } from 'rxjs/operators';
 

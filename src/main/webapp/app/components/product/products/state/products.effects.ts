@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { ProductService } from '../../components/product/service/product.service';
+import { ProductService } from '../../service/product.service';
 import * as ProductActions from './products.actions';
 import { catchError, map, switchMap } from 'rxjs/operators';
-import { IProduct } from '../../components/product/product.model';
+import { IProduct } from '../../product.model';
 import { of } from 'rxjs';
 
 @Injectable()

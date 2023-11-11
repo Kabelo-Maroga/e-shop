@@ -4,7 +4,7 @@ import { RouterModule } from '@angular/router';
 import { SharedModule } from 'app/shared/shared.module';
 import { PRODUCTS_ROUTE } from './products.route';
 import { ProductsComponent } from './products.component';
-import { ProductCardModule } from '../product-card/product-card.module';
+import { ProductCardModule } from '../../../product-card/product-card.module';
 import { ButtonModule } from 'primeng/button';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import * as ProductReducer from './state/products.reducer';

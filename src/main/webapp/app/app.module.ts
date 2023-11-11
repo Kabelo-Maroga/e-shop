@@ -26,7 +26,7 @@ import { FooterComponent } from './layouts/footer/footer.component';
 import { PageRibbonComponent } from './layouts/profiles/page-ribbon.component';
 import { ActiveMenuDirective } from './layouts/navbar/active-menu.directive';
 import { ErrorComponent } from './layouts/error/error.component';
-import { ProductsModule } from './products/products.module';
+import { ProductsModule } from './components/product/products/products.module';
 import { ProductCardModule } from './product-card/product-card.module';
 import { BsNavbarModule } from './bs-navbar/bs-navbar.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
