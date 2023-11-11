@@ -12,6 +12,7 @@ import { StatusCode } from '../../enumerations/status-code';
 import { finalize } from 'rxjs/operators';
 import { HttpResponse } from '@angular/common/http';
 import { IShoppingCart } from '../../shopping-cart/shopping-cart.model';
+import { ProductsFacade } from '../../../products/products.facade';
 
 @Component({
   selector: 'jhi-product',
@@ -22,6 +23,7 @@ export class ProductComponent implements OnInit {
   ref?: DynamicDialogRef;
   products: IProduct[] = [];
   filteredProducts: IProduct[] = [];
+  allProducts$ = this.productsFacade.allProducts$;
 
   categories: Category[] = [Category.BREAD, Category.FRUITS, Category.SEASONING, Category.DAIRY, Category.VEGETABLE];
 
@@ -30,10 +32,10 @@ export class ProductComponent implements OnInit {
 
   constructor(
     private productService: ProductService,
-    private shoppingCartService: ShoppingCartService,
     protected confirmationService: ConfirmationService,
     protected messageService: MessageService,
-    private dialogService: DialogService
+    private dialogService: DialogService,
+    private productsFacade: ProductsFacade
   ) {}
 
   ngOnInit(): void {

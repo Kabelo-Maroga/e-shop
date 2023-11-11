@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ProductService } from '../components/product/service/product.service';
 import { IProduct } from '../components/product/product.model';
 import { ShoppingCartService } from '../components/shopping-cart/service/shopping-cart.service';
 import { Category } from '../components/enumerations/category.model';

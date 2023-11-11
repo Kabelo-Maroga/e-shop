@@ -13,41 +13,6 @@ import { FormBuilder } from '@angular/forms';
   templateUrl: './product-update.component.html',
 })
 export class ProductUpdateComponent implements OnInit {
-  // categories: string[] = ['BREAD', 'FRUIT', 'SEASONING', 'DAIRY', 'VEGETABLE'];
-  // product?: IProduct | null;
-  // id: any;
-  //
-  // constructor(
-  //   private route: ActivatedRoute,
-  //   private productService: ProductService,
-  //   private router: Router) {
-  //   console.log('categories: ', this.categories);
-  // }
-  //
-  // ngOnInit(): void {
-  //   this.id = this.route.snapshot.paramMap.get('id');
-  //   const id = Number(this.id);
-  //   this.productService.find(id).subscribe(res => this.product = res.body);
-  // }
-  //
-  // save(product: any): void {
-  //   if (this.id) {
-  //     this.productService.update(product).subscribe(res => this.product = res.body);
-  //   } else {
-  //     this.productService.create(product).subscribe(res => this.product = res.body);
-  //   }
-  //   this.router.navigate(['/admin/products']);
-  // }
-  //
-  // delete(): void {
-  //   console.log('testing')
-  //   // if (confirm("Are you sure you want to delete this product?")) {
-  //   //   // this.productService.delete()
-  //   //   // this.productService.delete(this.id);
-  //   //   // this.router.navigate(['/admin/products']);
-  //   // }
-  // }
-
   isSaving = false;
   categoryValues = Object.keys(Category);
 
