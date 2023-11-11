@@ -2,6 +2,8 @@
   <p-progressSpinner></p-progressSpinner>
 </div>
 
+<button (click)="productsFacade.getProducts()">Here</button>
+
 <div *ngIf="!isLoading" class="row">
   <div class="col-3" style="margin-top: 20px">
     <!--    <shop-filter [category] = "category"></shop-filter>-->

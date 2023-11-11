@@ -31,6 +31,8 @@ import { ProductCardModule } from './product-card/product-card.module';
 import { BsNavbarModule } from './bs-navbar/bs-navbar.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ButtonModule } from 'primeng/button';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreModule } from '@ngrx/store';
 
 @NgModule({
   imports: [
@@ -46,6 +48,8 @@ import { ButtonModule } from 'primeng/button';
     EntityRoutingModule,
     AppRoutingModule,
     // Set this to true to enable service worker (PWA)
+    StoreModule.forRoot([]),
+    EffectsModule.forRoot([]),
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: false }),
     HttpClientModule,
     NgxWebstorageModule.forRoot({ prefix: 'jhi', separator: '-', caseSensitive: true }),

@@ -9,7 +9,7 @@ import { IProduct, getProductIdentifier } from '../product.model';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
 
 export type EntityResponseType = HttpResponse<IProduct>;
-export type EntityArrayResponseType = HttpResponse<IProduct[]>;
+// export type EntityArrayResponseType = HttpResponse<IProduct[]>;
 
 @Injectable({ providedIn: 'root' })
 export class ProductService {
@@ -36,9 +36,10 @@ export class ProductService {
     return this.http.get<IProduct>(`${this.resourceUrl}/${id}`, { observe: 'response' });
   }
 
-  query(req?: any): Observable<EntityArrayResponseType> {
+  query(req?: any): Observable<IProduct[]> {
     const options = createRequestOption(req);
-    return this.http.get<IProduct[]>(this.resourceUrl, { params: options, observe: 'response' });
+    console.log('we here ------ ');
+    return this.http.get<IProduct[]>(this.resourceUrl, { params: options });
   }
 
   delete(id: number): Observable<HttpResponse<{}>> {

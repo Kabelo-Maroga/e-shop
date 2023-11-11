@@ -183,13 +183,13 @@ export class ShoppingCartUpdateComponent implements OnInit {
       )
       .subscribe((shopUsers: IShopUser[]) => (this.shopUsersCollection = shopUsers));
 
-    this.productService
-      .query()
-      .pipe(map((res: HttpResponse<IProduct[]>) => res.body ?? []))
-      .pipe(
-        map((products: IProduct[]) => this.productService.addProductToCollectionIfMissing(products, this.editForm.get('product')!.value))
-      )
-      .subscribe((products: IProduct[]) => (this.productsSharedCollection = products));
+    // this.productService
+    //   .query()
+    //   .pipe(map((res: HttpResponse<IProduct[]>) => res.body ?? []))
+    //   .pipe(
+    //     map((products: IProduct[]) => this.productService.addProductToCollectionIfMissing(products, this.editForm.get('product')!.value))
+    //   )
+    //   .subscribe((products: IProduct[]) => (this.productsSharedCollection = products));
   }
 
   protected createFromForm(): IShoppingCart {

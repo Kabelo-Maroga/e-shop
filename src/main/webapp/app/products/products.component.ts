@@ -4,6 +4,7 @@ import { IProduct } from '../components/product/product.model';
 import { ShoppingCartService } from '../components/shopping-cart/service/shopping-cart.service';
 import { Category } from '../components/enumerations/category.model';
 import { IShoppingCart } from '../components/shopping-cart/shopping-cart.model';
+import { ProductsFacade } from './products.facade';
 
 @Component({
   selector: 'jhi-home',
@@ -19,9 +20,12 @@ export class ProductsComponent implements OnInit {
   category?: string;
   categories: Category[] = [Category.BREAD, Category.FRUITS, Category.SEASONING, Category.DAIRY, Category.VEGETABLE];
 
-  constructor(private productService: ProductService, public shoppingCartService: ShoppingCartService) {}
+  constructor(public productsFacade: ProductsFacade, public shoppingCartService: ShoppingCartService) {}
 
   ngOnInit(): void {
+    this.productsFacade.selectAllProducts$.subscribe(res => console.log('res ------ ', res));
+    // console.log("res -------- ", this.productsFacade.products$);
+    // this.productsFacade.products$.subscribe(res => console.log("res 2 ---- ", res));
     this.fetchShoppingCart();
   }
 
@@ -40,14 +44,14 @@ export class ProductsComponent implements OnInit {
     return this.shoppingCart;
   }
 
-  private fetchProducts(): void {
-    this.productService.query().subscribe(res => (this.products = this.filteredProducts = res.body ?? []));
-  }
+  // private fetchProducts(): void {
+  //   this.productService.query().subscribe(res => (this.products = this.filteredProducts = res.body ?? []));
+  // }
 
   private fetchShoppingCart(): void {
     this.shoppingCartService.query().subscribe(res => {
       this.shoppingCartService.shoppingCarts = res.body ?? [];
-      this.fetchProducts();
+      // this.fetchProducts();
       this.isLoading = false;
     });
   }

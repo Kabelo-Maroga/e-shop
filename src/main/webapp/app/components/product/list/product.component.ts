@@ -124,7 +124,7 @@ export class ProductComponent implements OnInit {
 
   private fetchProducts(): void {
     this.productService.query().subscribe(res => {
-      this.productService.products = this.filteredProducts = res.body ?? [];
+      // this.productService.products = this.filteredProducts = res.body ?? [];
       this.productService.products.reverse();
     });
   }
