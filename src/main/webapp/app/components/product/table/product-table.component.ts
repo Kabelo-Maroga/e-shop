@@ -16,10 +16,10 @@ import { ProductsFacade } from '../../../products/products.facade';
 
 @Component({
   selector: 'jhi-product',
-  templateUrl: './product.component.html',
-  styleUrls: ['./product.component.html'],
+  templateUrl: './product-table.component.html',
+  styleUrls: ['./product-table.component.html'],
 })
-export class ProductComponent implements OnInit {
+export class ProductTableComponent implements OnInit {
   ref?: DynamicDialogRef;
   products: IProduct[] = [];
   filteredProducts: IProduct[] = [];

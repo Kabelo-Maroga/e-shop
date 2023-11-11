@@ -8,17 +8,17 @@ import { of } from 'rxjs';
 
 import { ProductService } from '../service/product.service';
 
-import { ProductComponent } from './product.component';
+import { ProductTableComponent } from './product-table.component';
 
 describe('Product Management Component', () => {
-  let comp: ProductComponent;
-  let fixture: ComponentFixture<ProductComponent>;
+  let comp: ProductTableComponent;
+  let fixture: ComponentFixture<ProductTableComponent>;
   let service: ProductService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
-      declarations: [ProductComponent],
+      declarations: [ProductTableComponent],
       providers: [
         Router,
         {
@@ -38,10 +38,10 @@ describe('Product Management Component', () => {
         },
       ],
     })
-      .overrideTemplate(ProductComponent, '')
+      .overrideTemplate(ProductTableComponent, '')
       .compileComponents();
 
-    fixture = TestBed.createComponent(ProductComponent);
+    fixture = TestBed.createComponent(ProductTableComponent);
     comp = fixture.componentInstance;
     service = TestBed.inject(ProductService);
 

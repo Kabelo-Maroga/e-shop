@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { UserRouteAccessService } from 'app/core/auth/user-route-access.service';
-import { ProductComponent } from '../list/product.component';
+import { ProductTableComponent } from '../table/product-table.component';
 import { ProductDetailComponent } from '../detail/product-detail.component';
 import { ProductUpdateComponent } from '../update/product-update.component';
 import { ProductRoutingResolveService } from './product-routing-resolve.service';
@@ -10,7 +10,7 @@ import { ProductRoutingResolveService } from './product-routing-resolve.service'
 const productRoute: Routes = [
   {
     path: '',
-    component: ProductComponent,
+    component: ProductTableComponent,
     data: {
       defaultSort: 'id,asc',
     },
