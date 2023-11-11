@@ -7,6 +7,7 @@ import { DEBUG_INFO_ENABLED } from 'app/app.constants';
 import { Authority } from 'app/config/authority.constants';
 
 import { UserRouteAccessService } from 'app/core/auth/user-route-access.service';
+import { ProductsModule } from './components/product/list/products.module';
 
 const LAYOUT_ROUTES = [navbarRoute, ...errorRoute];
 
