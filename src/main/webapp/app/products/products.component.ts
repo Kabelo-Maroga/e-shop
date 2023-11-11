@@ -5,6 +5,7 @@ import { ShoppingCartService } from '../components/shopping-cart/service/shoppin
 import { Category } from '../components/enumerations/category.model';
 import { IShoppingCart } from '../components/shopping-cart/shopping-cart.model';
 import { ProductsFacade } from './products.facade';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'jhi-home',
@@ -12,8 +13,7 @@ import { ProductsFacade } from './products.facade';
   styleUrls: ['./products.component.scss'],
 })
 export class ProductsComponent implements OnInit {
-  products: IProduct[] = [];
-  filteredProducts?: IProduct[];
+  allProducts$ = this.productsFacade.allProducts$;
   shoppingCart?: IShoppingCart;
 
   isLoading = true;
@@ -23,19 +23,19 @@ export class ProductsComponent implements OnInit {
   constructor(public productsFacade: ProductsFacade, public shoppingCartService: ShoppingCartService) {}
 
   ngOnInit(): void {
-    this.productsFacade.selectAllProducts$.subscribe(res => console.log('res ------ ', res));
-    // console.log("res -------- ", this.productsFacade.products$);
-    // this.productsFacade.products$.subscribe(res => console.log("res 2 ---- ", res));
+    this.productsFacade.getProducts();
     this.fetchShoppingCart();
   }
 
   filterProducts(category: Category): void {
     this.category = category;
-    this.filteredProducts = this.products?.filter(product => product.category?.toLowerCase() === this.category?.toLowerCase());
+    this.allProducts$ = this.allProducts$.pipe(
+      map(products => products?.filter(product => product.category?.toLowerCase() === this.category?.toLowerCase()))
+    );
   }
 
   seeAllCategories(): void {
-    this.filteredProducts = this.products;
+    this.allProducts$ = this.productsFacade.allProducts$;
     this.category = undefined;
   }
 
@@ -43,10 +43,6 @@ export class ProductsComponent implements OnInit {
     this.shoppingCart = this.shoppingCartService.shoppingCarts.find(shoppingCart => shoppingCart.product?.id === product.id);
     return this.shoppingCart;
   }
-
-  // private fetchProducts(): void {
-  //   this.productService.query().subscribe(res => (this.products = this.filteredProducts = res.body ?? []));
-  // }
 
   private fetchShoppingCart(): void {
     this.shoppingCartService.query().subscribe(res => {

@@ -7,7 +7,7 @@ import * as ProductSelectors from './state/products.selectors';
   providedIn: 'root',
 })
 export class ProductsFacade {
-  selectAllProducts$ = this.store.select(ProductSelectors.selectAllProducts);
+  allProducts$ = this.store.select(ProductSelectors.selectAllProducts);
   constructor(private store: Store) {}
   getProducts(): void {
     this.store.dispatch(ProductActions.getAllProducts());

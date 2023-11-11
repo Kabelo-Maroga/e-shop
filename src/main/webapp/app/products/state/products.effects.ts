@@ -3,7 +3,7 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { ProductService } from '../../components/product/service/product.service';
 import * as ProductActions from './products.actions';
 import { catchError, map, switchMap } from 'rxjs/operators';
-import { IProduct, Product } from '../../components/product/product.model';
+import { IProduct } from '../../components/product/product.model';
 import { of } from 'rxjs';
 
 @Injectable()
@@ -13,12 +13,11 @@ export class ProductEffects {
       ofType(ProductActions.getAllProducts),
       switchMap(() =>
         this.productService.query().pipe(
-          map((products: Product[]) => ProductActions.getAllProductsSuccess({ products })),
+          map((products: IProduct[]) => ProductActions.getAllProductsSuccess({ products })),
           catchError(error => of(ProductActions.getAllProductsFail(error)))
         )
       )
     )
   );
-
   constructor(private actions$: Actions, private productService: ProductService) {}
 }
