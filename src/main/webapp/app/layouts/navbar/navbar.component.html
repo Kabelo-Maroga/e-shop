@@ -16,7 +16,8 @@
     aria-controls="navbarResponsive"
     aria-expanded="false"
     aria-label="Toggle navigation"
-    (click)="toggleNavbar()">
+    (click)="toggleNavbar()"
+  >
     <fa-icon icon="bars"></fa-icon>
   </a>
   <div class="navbar-collapse collapse" id="navbarResponsive" [ngbCollapse]="isNavbarCollapsed" [ngSwitch]="account !== null">
@@ -41,7 +42,7 @@
           <li *jhiHasAnyAuthority="'ROLE_ADMIN'">
             <a
               class="dropdown-item"
-              routerLink="product"
+              routerLink="product-table"
               routerLinkActive="active"
               [routerLinkActiveOptions]="{ exact: true }"
               (click)="collapseNavbar()"

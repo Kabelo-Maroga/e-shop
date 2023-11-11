@@ -36,7 +36,9 @@ export class ProductTableComponent implements OnInit {
     protected messageService: MessageService,
     private dialogService: DialogService,
     private productsFacade: ProductFacade
-  ) {}
+  ) {
+    console.log('--------------------- we here --------------');
+  }
 
   ngOnInit(): void {
     this.fetchProducts();

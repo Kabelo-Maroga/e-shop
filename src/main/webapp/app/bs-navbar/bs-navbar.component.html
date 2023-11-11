@@ -1,57 +1,57 @@
-<nav class="navbar navbar-expand-md navbar-light bg-light fixed-top">
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col">
-        <a class="navbar-brand" [routerLink]="['/']">
-          <button icon="pi pi-home" pButton type="button" class="p-button-success p-button-raised p-button-rounded"></button>
-        </a>
-        <a (click)="show1()">
-          <button
-            style="margin-bottom: 5px"
-            icon="pi pi-shopping-cart"
-            pButton
-            type="button"
-            class="p-button-raised p-button-rounded"
-          ></button>
-          <span class="badge badge-warning badge-pill">{{ itemsInTheCart() }}</span>
-        </a>
-      </div>
-    </div>
+<!--<nav class="navbar navbar-expand-md navbar-light bg-light fixed-top">-->
+<!--  <div class="container-fluid">-->
+<!--    <div class="row">-->
+<!--      <div class="col">-->
+<!--        <a class="navbar-brand" [routerLink]="['/']">-->
+<!--          <button icon="pi pi-home" pButton type="button" class="p-button-success p-button-raised p-button-rounded"></button>-->
+<!--        </a>-->
+<!--        <a (click)="show1()">-->
+<!--          <button-->
+<!--            style="margin-bottom: 5px"-->
+<!--            icon="pi pi-shopping-cart"-->
+<!--            pButton-->
+<!--            type="button"-->
+<!--            class="p-button-raised p-button-rounded"-->
+<!--          ></button>-->
+<!--          <span class="badge badge-warning badge-pill">{{ itemsInTheCart() }}</span>-->
+<!--        </a>-->
+<!--      </div>-->
+<!--    </div>-->
 
-    <div style="float: right">
-      <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-        <ul class="navbar-nav me-auto mb-2 mb-md-0">
-          <li *ngIf="!account" class="nav-item" style="margin-top: 10px">
-            <a class="nav-link" [routerLink]="['/login']">Login</a>
-          </li>
+<!--    <div style="float: right">-->
+<!--      <div class="collapse navbar-collapse" id="navbarsExampleDefault">-->
+<!--        <ul class="navbar-nav me-auto mb-2 mb-md-0">-->
+<!--          <li *ngIf="!account" class="nav-item" style="margin-top: 10px">-->
+<!--            <a class="nav-link" [routerLink]="['/login']">Login</a>-->
+<!--          </li>-->
 
-          <li *ngIf="account && !isAdmin()" ngbDropdown class="nav-item dropdown" style="margin-top: 10px">
-            <a ngbDropdownToggle class="nav-link dropdown-toggle" id="dropdown01" data-bs-toggle="dropdown" aria-expanded="false">{{
-              account.login
-            }}</a>
-            <ul ngbDropdownMenu class="dropdown-menu" aria-labelledby="dropdown01">
-              <li><a class="dropdown-item">My orders</a></li>
-              <li><a class="dropdown-item" (click)="logout()">Logout</a></li>
-            </ul>
-          </li>
+<!--          <li *ngIf="account && !isAdmin()" ngbDropdown class="nav-item dropdown" style="margin-top: 10px">-->
+<!--            <a ngbDropdownToggle class="nav-link dropdown-toggle" id="dropdown01" data-bs-toggle="dropdown" aria-expanded="false">{{-->
+<!--              account.login-->
+<!--            }}</a>-->
+<!--            <ul ngbDropdownMenu class="dropdown-menu" aria-labelledby="dropdown01">-->
+<!--              <li><a class="dropdown-item">My orders</a></li>-->
+<!--              <li><a class="dropdown-item" (click)="logout()">Logout</a></li>-->
+<!--            </ul>-->
+<!--          </li>-->
 
-          <li *ngIf="account && isAdmin()" ngbDropdown class="nav-item dropdown" style="margin-top: 10px">
-            <a ngbDropdownToggle class="nav-link dropdown-toggle" id="dropdown02" data-bs-toggle="dropdown" aria-expanded="false">{{
-              account.login
-            }}</a>
-            <ul ngbDropdownMenu class="dropdown-menu" aria-labelledby="dropdown02">
-              <li><a class="dropdown-item">My orders</a></li>
-              <li>
-                <a class="dropdown-item">Manage orders</a>
-              </li>
-              <li>
-                <a class="dropdown-item" [routerLink]="['/product']">Manage products</a>
-              </li>
-              <li><a class="dropdown-item" (click)="logout()">Logout</a></li>
-            </ul>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</nav>
+<!--          <li *ngIf="account && isAdmin()" ngbDropdown class="nav-item dropdown" style="margin-top: 10px">-->
+<!--            <a class="nav-link dropdown-toggle" id="dropdown02" data-bs-toggle="dropdown" aria-expanded="false">{{-->
+<!--              account.login-->
+<!--            }}</a>-->
+<!--            <ul class="dropdown-menu" aria-labelledby="dropdown02">-->
+<!--              <li><a class="dropdown-item">My orders</a></li>-->
+<!--              <li>-->
+<!--                <a class="dropdown-item">Manage orders</a>-->
+<!--              </li>-->
+<!--              <li>-->
+<!--                <a class="dropdown-item" [routerLink]="['/product-table']">Manage products</a>-->
+<!--              </li>-->
+<!--              <li><a class="dropdown-item" (click)="logout()">Logout</a></li>-->
+<!--            </ul>-->
+<!--          </li>-->
+<!--        </ul>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</nav>-->

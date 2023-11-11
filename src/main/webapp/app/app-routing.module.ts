@@ -7,7 +7,6 @@ import { DEBUG_INFO_ENABLED } from 'app/app.constants';
 import { Authority } from 'app/config/authority.constants';
 
 import { UserRouteAccessService } from 'app/core/auth/user-route-access.service';
-import { ProductsModule } from './components/product/list/products.module';
 
 const LAYOUT_ROUTES = [navbarRoute, ...errorRoute];
 
@@ -17,8 +16,12 @@ const LAYOUT_ROUTES = [navbarRoute, ...errorRoute];
       [
         {
           path: '',
-          loadChildren: () => import('./components/product/list/products.module').then(m => m.ProductsModule),
+          loadChildren: () => import('./components/product/product.module').then(m => m.ProductModule),
         },
+        // {
+        //   path: 'product',
+        //   loadChildren: () => import('./components/product/product.module').then(m => m.ProductModule),
+        // },
         {
           path: 'admin',
           data: {
