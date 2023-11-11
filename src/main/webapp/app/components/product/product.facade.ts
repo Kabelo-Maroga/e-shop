@@ -6,7 +6,7 @@ import * as ProductSelectors from './state/product.selectors';
 @Injectable({
   providedIn: 'root',
 })
-export class ProductsFacade {
+export class ProductFacade {
   allProducts$ = this.store.select(ProductSelectors.selectAllProducts);
   constructor(private store: Store) {}
   getProducts(): void {

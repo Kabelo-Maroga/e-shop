@@ -3,7 +3,7 @@ import { IProduct } from '../product.model';
 import { ShoppingCartService } from '../../shopping-cart/service/shopping-cart.service';
 import { Category } from '../../enumerations/category.model';
 import { IShoppingCart } from '../../shopping-cart/shopping-cart.model';
-import { ProductsFacade } from './products.facade';
+import { ProductFacade } from '../product.facade';
 import { map } from 'rxjs/operators';
 
 @Component({
@@ -19,7 +19,7 @@ export class ListComponent implements OnInit {
   category?: string;
   categories: Category[] = [Category.BREAD, Category.FRUITS, Category.SEASONING, Category.DAIRY, Category.VEGETABLE];
 
-  constructor(public productsFacade: ProductsFacade, public shoppingCartService: ShoppingCartService) {}
+  constructor(public productsFacade: ProductFacade, public shoppingCartService: ShoppingCartService) {}
 
   ngOnInit(): void {
     this.productsFacade.getProducts();

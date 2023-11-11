@@ -12,7 +12,7 @@ import { StatusCode } from '../../enumerations/status-code';
 import { finalize } from 'rxjs/operators';
 import { HttpResponse } from '@angular/common/http';
 import { IShoppingCart } from '../../shopping-cart/shopping-cart.model';
-import { ProductsFacade } from '../list/products.facade';
+import { ProductFacade } from '../product.facade';
 
 @Component({
   selector: 'jhi-product',
@@ -35,7 +35,7 @@ export class ProductTableComponent implements OnInit {
     protected confirmationService: ConfirmationService,
     protected messageService: MessageService,
     private dialogService: DialogService,
-    private productsFacade: ProductsFacade
+    private productsFacade: ProductFacade
   ) {}
 
   ngOnInit(): void {

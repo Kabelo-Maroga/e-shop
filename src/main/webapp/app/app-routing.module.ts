@@ -15,6 +15,10 @@ const LAYOUT_ROUTES = [navbarRoute, ...errorRoute];
     RouterModule.forRoot(
       [
         {
+          path: '',
+          loadChildren: () => import('./components/product/list/products.module').then(m => m.ProductsModule),
+        },
+        {
           path: 'admin',
           data: {
             authorities: [Authority.ADMIN],
