@@ -1,5 +1,5 @@
 import { IProduct } from '../../product.model';
 
-export interface Products {
+export interface Product {
   products: IProduct[];
 }

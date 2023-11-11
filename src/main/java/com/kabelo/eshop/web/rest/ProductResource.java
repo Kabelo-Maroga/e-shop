@@ -144,7 +144,7 @@ public class ProductResource {
      */
     @GetMapping("/products")
     public ResponseEntity<List<ProductDTO>> getAllProducts(Pageable pageable) {
-        log.debug("REST request to get a page of Products");
+        log.debug("REST request to get a page of Product");
         Page<ProductDTO> page = productService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());

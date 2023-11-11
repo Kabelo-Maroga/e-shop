@@ -12,7 +12,7 @@ import { StatusCode } from '../../enumerations/status-code';
 import { finalize } from 'rxjs/operators';
 import { HttpResponse } from '@angular/common/http';
 import { IShoppingCart } from '../../shopping-cart/shopping-cart.model';
-import { ProductsFacade } from '../products/products.facade';
+import { ProductsFacade } from '../list/products.facade';
 
 @Component({
   selector: 'jhi-product',

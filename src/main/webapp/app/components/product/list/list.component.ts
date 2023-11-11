@@ -8,10 +8,10 @@ import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'jhi-home',
-  templateUrl: './products.component.html',
-  styleUrls: ['./products.component.scss'],
+  templateUrl: './list.component.html',
+  styleUrls: ['./list.component.scss'],
 })
-export class ProductsComponent implements OnInit {
+export class ListComponent implements OnInit {
   allProducts$ = this.productsFacade.allProducts$;
   shoppingCart?: IShoppingCart;
 
