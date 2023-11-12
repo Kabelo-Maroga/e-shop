@@ -23,7 +23,7 @@ export class ProductTableComponent implements OnInit {
   ref?: DynamicDialogRef;
   products: IProduct[] = [];
   filteredProducts: IProduct[] = [];
-  allProducts$ = this.productsFacade.allProducts$;
+  allProducts$ = this.productFacade.allProducts$;
 
   categories: Category[] = [Category.BREAD, Category.FRUITS, Category.SEASONING, Category.DAIRY, Category.VEGETABLE];
 
@@ -35,13 +35,12 @@ export class ProductTableComponent implements OnInit {
     protected confirmationService: ConfirmationService,
     protected messageService: MessageService,
     private dialogService: DialogService,
-    private productsFacade: ProductFacade
-  ) {
-    console.log('--------------------- we here --------------');
-  }
+    private productFacade: ProductFacade
+  ) {}
 
   ngOnInit(): void {
-    this.fetchProducts();
+    this.productFacade.getProducts();
+    // this.fetchProducts();
   }
 
   filter(query: string): void {

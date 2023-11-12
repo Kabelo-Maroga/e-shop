@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { UserRouteAccessService } from 'app/core/auth/user-route-access.service';
-import { ProductDetailComponent } from '../detail/product-detail.component';
 import { ProductUpdateComponent } from '../update/product-update.component';
 import { ProductRoutingResolveService } from './product-routing-resolve.service';
 import { ListComponent } from '../list/list.component';
@@ -22,14 +21,6 @@ const productRoute: Routes = [
     component: ProductTableComponent,
     data: {
       defaultSort: 'id,asc',
-    },
-    canActivate: [UserRouteAccessService],
-  },
-  {
-    path: ':id/view',
-    component: ProductDetailComponent,
-    resolve: {
-      product: ProductRoutingResolveService,
     },
     canActivate: [UserRouteAccessService],
   },
