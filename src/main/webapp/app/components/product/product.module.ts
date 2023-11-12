@@ -15,8 +15,9 @@ import { ProductEffects } from './state/product.effects';
 import { StoreModule } from '@ngrx/store';
 import * as ProductReducer from './state/product.reducer';
 import { ListComponent } from './list/list.component';
-import { ProductCardModule } from '../../product-card/product-card.module';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { CardComponent } from './card/card.component';
+import { TooltipModule } from 'primeng/tooltip';
 
 @NgModule({
   imports: [
@@ -26,12 +27,19 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
     TableModule,
     ConfirmDialogModule,
     RippleModule,
-    ProductCardModule,
+    TooltipModule,
     ProgressSpinnerModule,
     EffectsModule.forFeature([ProductEffects]),
     StoreModule.forFeature(ProductReducer.featureKey, ProductReducer.ProductReducer),
   ],
-  declarations: [ListComponent, ProductTableComponent, ProductDetailComponent, ProductUpdateComponent, ProductDeleteDialogComponent],
+  declarations: [
+    CardComponent,
+    ListComponent,
+    ProductTableComponent,
+    ProductDetailComponent,
+    ProductUpdateComponent,
+    ProductDeleteDialogComponent,
+  ],
   entryComponents: [ProductDeleteDialogComponent],
   providers: [MessageService, ConfirmationService],
 })

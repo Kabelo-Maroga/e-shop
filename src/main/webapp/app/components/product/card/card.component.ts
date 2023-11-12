@@ -1,21 +1,17 @@
 import { Component, Input } from '@angular/core';
-import { ShoppingCartService } from '../components/shopping-cart/service/shopping-cart.service';
-import { IProduct } from '../components/product/product.model';
-import { IShoppingCart } from '../components/shopping-cart/shopping-cart.model';
-import { ToolTipLabel } from '../components/enumerations/tool-tip-label.model';
+import { ShoppingCartService } from '../../shopping-cart/service/shopping-cart.service';
+import { IProduct } from '../product.model';
+import { IShoppingCart } from '../../shopping-cart/shopping-cart.model';
+import { ToolTipLabel } from '../../enumerations/tool-tip-label.model';
 
 @Component({
   selector: 'product-card',
-  templateUrl: './product-card.component.html',
-  styleUrls: ['./product-card.component.scss'],
+  templateUrl: './card.component.html',
+  styleUrls: ['./card.component.scss'],
 })
-export class ProductCardComponent {
+export class CardComponent {
   @Input() product?: IProduct;
   @Input() shoppingCart?: IShoppingCart | undefined;
-
-  // options = {
-  //   text: 'testing',
-  // };
 
   constructor(public shoppingCartService: ShoppingCartService) {}
 
