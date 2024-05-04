@@ -13,6 +13,11 @@ import { IProduct } from 'app/components/product/product.model';
 import { ProductService } from 'app/components/product/service/product.service';
 import { ConfirmationService, MessageService } from 'primeng/api';
 
+interface Address {
+  name: string;
+  code: string;
+}
+
 @Component({
   selector: 'jhi-shopping-cart-update',
   templateUrl: './shopping-cart-update.component.html',
@@ -20,6 +25,13 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 })
 export class ShoppingCartUpdateComponent implements OnInit {
   shoppingCarts: IShoppingCart[] = [];
+
+  addresses: Address[] = [
+    { name: 'Kempton Park', code: 'KP' },
+    { name: 'Burgersfort', code: 'BGF' },
+  ];
+
+  selectedCity!: Address;
 
   isSaving = false;
   isLoading = false;
@@ -33,6 +45,8 @@ export class ShoppingCartUpdateComponent implements OnInit {
     shopUser: [],
     product: [],
   });
+
+  shippingAddresses = ['Burgersfort', 'Syringa Mews'];
 
   constructor(
     protected shoppingCartService: ShoppingCartService,
@@ -49,6 +63,7 @@ export class ShoppingCartUpdateComponent implements OnInit {
     this.isLoading = true;
     this.shoppingCartService.query().subscribe(res => {
       this.shoppingCarts = this.shoppingCartService.shoppingCarts = res.body ?? [];
+      console.log('shopping cart ------ ', this.shoppingCarts);
       this.isLoading = false;
     });
 

@@ -14,6 +14,7 @@ import { TableModule } from 'primeng/table';
 import { RatingModule } from 'primeng/rating';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { DropdownModule } from 'primeng/dropdown';
 
 @NgModule({
   imports: [
@@ -27,6 +28,7 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
     TableModule,
     RatingModule,
     ConfirmDialogModule,
+    DropdownModule,
   ],
   declarations: [ShoppingCartComponent, ShoppingCartDetailComponent, ShoppingCartUpdateComponent, ShoppingCartDeleteDialogComponent],
   entryComponents: [ShoppingCartDeleteDialogComponent],

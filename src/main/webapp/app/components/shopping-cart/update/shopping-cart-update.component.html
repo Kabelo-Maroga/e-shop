@@ -1,72 +1,110 @@
-<p-toast></p-toast>
+<!--<p-toast></p-toast>-->
 <div *ngIf="shoppingCarts.length !== 0; else cartEmpty">
-  <div style="padding: 5px 0px 45px">
-    <button
-      style="float: right; margin-left: 5px"
-      pButton
-      type="button"
-      label="Checkout"
-      icon="pi pi-shopping-cart"
-      class="p-button-sm"
-    ></button>
-    <button
-      style="float: right"
-      pButton
-      type="button"
-      label="Clear Cart"
-      icon="pi pi-trash"
-      class="p-button-warning p-button-sm"
-      (click)="clearCart()"
-    ></button>
+  <!--  <div style="padding: 5px 0px 45px">-->
+  <!--    <button-->
+  <!--      style="float: right; margin-left: 5px"-->
+  <!--      pButton-->
+  <!--      type="button"-->
+  <!--      label="Checkout"-->
+  <!--      icon="pi pi-shopping-cart"-->
+  <!--      class="p-button-sm"-->
+  <!--    ></button>-->
+  <!--    <button-->
+  <!--      style="float: right"-->
+  <!--      pButton-->
+  <!--      type="button"-->
+  <!--      label="Clear Cart"-->
+  <!--      icon="pi pi-trash"-->
+  <!--      class="p-button-warning p-button-sm"-->
+  <!--      (click)="clearCart()"-->
+  <!--    ></button>-->
+  <!--  </div>-->
+
+  <div class="row" style="padding-top: 100px">
+    <div class="col" style="padding: 15px">
+      <div style="font-weight: 600; font-size: 1.25rem; color: #495057">
+        <span>Shopping cart</span>
+        <span style="float: right">Items</span>
+      </div>
+      <hr />
+      <p-table [loading]="isLoading" [value]="shoppingCarts" responsiveLayout="scroll">
+        <ng-template pTemplate="header">
+          <tr>
+            <th></th>
+            <th>Category</th>
+            <th>Title</th>
+            <th>SubTotal</th>
+            <th>Quantity</th>
+            <!--            <th></th>-->
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-shoppingCart>
+          <tr>
+            <td>
+              <img
+                style="border-radius: 5px"
+                [src]="shoppingCart.product.imageUrl"
+                [alt]="shoppingCart.name"
+                width="100"
+                class="p-shadow-4"
+              />
+            </td>
+            <td>{{ shoppingCart.product.category }}</td>
+            <td>{{ shoppingCart.product.title }}</td>
+            <td>{{ shoppingCart.product.price * getQuantity(shoppingCart.product) | currency: 'R' }}</td>
+            <td>
+              <div class="card-footer">
+                <div class="row no-gutters">
+                  <div class="col-2">
+                    <button (click)="removeFromCart(shoppingCart.product)" class="btn btn-secondary btn-block">-</button>
+                  </div>
+                  <div class="col text-center padding">{{ getQuantity(shoppingCart.product) }} in cart</div>
+                  <div class="col-2">
+                    <button (click)="addToCart(shoppingCart.product)" class="btn btn-secondary btn-block">+</button>
+                  </div>
+                </div>
+              </div>
+            </td>
+            <!--            <td style="padding-left: 60px">-->
+            <!--              <button-->
+            <!--                pButton-->
+            <!--                pRipple-->
+            <!--                icon="pi pi-trash"-->
+            <!--                class="p-button-rounded p-button-warning"-->
+            <!--                (click)="deleteSelectedProduct(shoppingCart.product)"-->
+            <!--              ></button>-->
+            <!--            </td>-->
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+    <div class="col-3" style="padding: 15px; background: #f8f9fa !important">
+      <div style="font-weight: 600; font-size: 1.25rem; color: #495057">Order Summery</div>
+      <hr />
+
+      <div style="padding-bottom: 15px">
+        <span>Items</span>
+        <span style="float: right">2</span>
+      </div>
+
+      <div style="padding-top: 15px">
+        <span>Shipping: </span>
+        <span style="float: right">
+          <p-dropdown style="width: 100%" [options]="addresses" [(ngModel)]="selectedCity" optionLabel="name"></p-dropdown>
+        </span>
+      </div>
+
+      <div style="position: relative; top: 45px">
+        <hr />
+        <div style="padding-bottom: 15px">
+          <span>Total Price</span>
+          <span style="float: right">2</span>
+        </div>
+        <button pButton type="button" icon="pi pi-shopping-cart" class="p-button-raised" label="Checkout"></button>
+      </div>
+    </div>
   </div>
-  <div></div>
-  <p-table [loading]="isLoading" [value]="shoppingCarts" responsiveLayout="scroll">
-    <ng-template pTemplate="header">
-      <tr>
-        <th>Image</th>
-        <th>Category</th>
-        <th>Title</th>
-        <th>SubTotal</th>
-        <th>Quantity</th>
-        <th></th>
-      </tr>
-    </ng-template>
-    <ng-template pTemplate="body" let-shoppingCart>
-      <tr>
-        <td>
-          <img style="border-radius: 5px" [src]="shoppingCart.product.imageUrl" [alt]="shoppingCart.name" width="100" class="p-shadow-4" />
-        </td>
-        <td>{{ shoppingCart.product.category }}</td>
-        <td>{{ shoppingCart.product.title }}</td>
-        <td>{{ shoppingCart.product.price * getQuantity(shoppingCart.product) | currency: 'R' }}</td>
-        <td>
-          <div class="card-footer">
-            <div class="row no-gutters">
-              <div class="col-2">
-                <button (click)="removeFromCart(shoppingCart.product)" class="btn btn-secondary btn-block">-</button>
-              </div>
-              <div class="col text-center padding">{{ getQuantity(shoppingCart.product) }} in cart</div>
-              <div class="col-2">
-                <button (click)="addToCart(shoppingCart.product)" class="btn btn-secondary btn-block">+</button>
-              </div>
-            </div>
-          </div>
-        </td>
-        <td style="padding-left: 60px">
-          <button
-            pButton
-            pRipple
-            icon="pi pi-trash"
-            class="p-button-rounded p-button-warning"
-            (click)="deleteSelectedProduct(shoppingCart.product)"
-          ></button>
-        </td>
-      </tr>
-    </ng-template>
-  </p-table>
-  <span style="float: right; margin-top: 20px"
-    >Total Price: <strong>{{ getTotalPrice() | currency: 'R' }}</strong></span
-  >
+
   <p-confirmDialog [style]="{ width: '450px' }"></p-confirmDialog>
 </div>
 <ng-template #cartEmpty>No items available.</ng-template>

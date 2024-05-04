@@ -1,9 +1,9 @@
 <nav data-cy="navbar" class="navbar navbar-light navbar-expand-md bg-light fixed-top">
-  <a class="navbar-brand logo" routerLink="/" (click)="collapseNavbar()">
+  <a class="navbar-brand logo" (click)="collapseNavbar()">
     <a class="navbar-brand" [routerLink]="['/']">
       <button icon="pi pi-home" pButton type="button" class="p-button-success p-button-raised p-button-rounded"></button>
     </a>
-    <a (click)="show1()">
+    <a [routerLink]="['/shopping-cart']">
       <button style="margin-bottom: 5px" icon="pi pi-shopping-cart" pButton type="button" class="p-button-raised p-button-rounded"></button>
       <span class="badge badge-warning badge-pill">{{ itemsInTheCart() }}</span>
     </a>
